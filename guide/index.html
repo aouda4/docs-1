@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+    <style>
+        :root {
+            --base-font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">Please wait...</div>
+    <script>
+        window.$docsify = {
+            name: 'Open Inventory',
+            loadSidebar: true,
+            autoHeader: true,
+            mergeNavbar: true,
+            maxLevel: 4,
+            subMaxLevel: 2,
+            repo: 'https://github.com/openinventorysystem/docs',
+            auto2top: true,
+            basePath: '/guide/',
+            themeColor: '#272e81',
+            loadNavbar: false,
+            alias: {
+                '/.*/_sidebar.md': '/_sidebar.md'
+            }
+        }
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-dart.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-jsx.min.js"></script>
+</body>
+
+</html>
