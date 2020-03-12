@@ -1,111 +1,98 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- SEO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/bttn.min.css">
+    <style>
+        * {
+            overflow: hidden;
+        }
+
+        .page {
+            height: 100vh;
+        }
+
+        .left {
+            background: #00c6ff;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #0072ff, #00c6ff);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #0072ff, #00c6ff);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        }
+
+        .right {
+            background-image: url(assets/computer.jpg);
+            background-size: contain;
+            background-repeat: repeat;
+            background-position: center;
+        }
+    </style>
     <title>Open Inventory</title>
-    <meta name="description"
-        content="Split is a centrally-divided layout for a professional online presence with a big image or video left with alongside content." />
-    <meta name="robots" content="index, follow" />
-    <meta name="referrer" content="always" />
-    <!-- Social & Open Graph -->
-    <meta property="og:title" content="Open Inventory" />
-    <meta property="og:description"
-        content="Split is a centrally-divided layout for a professional online presence with a big image or video left with alongside content." />
-    <meta property="og:image" content="https://demo.onepagelove.com/fullsingle-html/split/images/social.jpg">
-    <!-- include your hosted image full URL -->
-    <meta property="og:url" content="https://demo.onepagelove.com/fullsingle-html/split/" />
-    <meta name="twitter:title" content="Open Inventory">
-    <meta name="twitter:description"
-        content="Split is a centrally-divided layout for a professional online presence with a big image or video left with alongside content." />
-    <meta name="twitter:image" content="https://demo.onepagelove.com/fullsingle-html/split/images/social.jpg" />
-    <!-- include your hosted image full URL -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@onepagelove" />
-    <meta name="twitter:creator" content="@robhope" />
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32">
-    <!-- Styles -->
-    <link rel='stylesheet' href='assets/css/split.css' type='text/css' media='screen' />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 
-<body id="fullsingle" class="page-template-page-fullsingle-split">
-    <div class="fs-split">
-        <!-- Image Side -->
-        <div class="split-image">
-        </div>
-        <!-- Content Side -->
-        <div class="split-content">
-            <div class="split-content-vertically-center">
-                <div class="split-intro">
-                    <h1>Open source Incentory Management System</h1>
-                    <span class="tagline">Open Inventory</span>
-                </div>
-                <div class="split-bio">
-                    <p>
-                        The proposed system is an automated <a href="#">inventory management system</a> for computer
-                        labs. The system
-                        should be
-                        well enough to be used in IoT labs and computer labs as well as to be used in any organization.
-                        A <a href="#">role based access control</a> is to be enforced in order to define separate
-                        functionalities for
-                        different roles. A mobile app will be integrated to the system in order to make the system more
-                        user friendly and usable to both students and the staff. System will record inventory
-                        transaction events through web portal and mobile app, and will output inventory details,
-                        statistics and reports. The system will communicate with lecturers through <a
-                            href="#">auto-generated emails</a>
-                        in order to make the system more accessible for them.
+<body>
+    <div class="row page text-white">
+        <div class="col-sm-6 text-center left animated fadeInLeft">
+            <div class="d-flex align-items-center page">
+                <div class="col">
+                    <h1 class="">Open Inventory</h1>
+                    <p class="lead">
+                        Automated open-source inventory management system of computer labs
                     </p>
-                    <br />
-                    <p>
-                        This project will be an <a href="#">open-source and free</a> software built for the target of
-                        letting users to
-                        manage university laboratories easily. Here any potential user will have to deploy the web app
-                        and the server in his/her own server and then let the users access the system. Mobile app will
-                        allow users to connect to the specific server.
-                    </p>
-                </div>
-                <div class="split-lists">
-                    <div class="split-list">
-                        <h3>Connect</h3>
-                        <ul>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Email</a></li>
-                            <li><a href="#">Newsletter</a></li>
-                        </ul>
+                    <div class="mt-5">
+                        <a href="guide" class="btn bttn-slant bttn-md bttn-primary bttn-outline">
+                            <i class="fa fa-book mr-1"></i> User Guide
+                        </a>
                     </div>
-                    <div class="split-list">
-                        <h3>Social</h3>
-                        <ul>
-                            <li><a href="#">Twitter</a></li>
-                            <li><a href="#">Instagram</a></li>
-                            <li><a href="#">Dribbble</a></li>
-                        </ul>
+                    <div class="mt-3">
+                        <a href="api" class="btn bttn-slant bttn-sm bttn-light bttn-outline">
+                            <i class="fa fa-server mr-1"></i> API Documentation
+                        </a>
                     </div>
-                    <div class="split-list">
-                        <h3>Network</h3>
-                        <ul>
-                            <li><a href="#">Link One</a></li>
-                            <li><a href="#">Link Two</a></li>
-                            <li><a href="#">Link Three</a></li>
-                        </ul>
+
+                    <div class="mt-1">
+                        <a href="https://openinventorysystem.github.io/backend-api/"
+                            class="btn bttn-slant bttn-sm bttn-light bttn-outline">
+                            <i class="fa fa-code mr-1"></i> Backend Source API Reference
+                        </a>
                     </div>
-                </div>
-                <div class="split-credit">
-                    <p>&copy;2017 <a href="#">Your Name</a> - <a href="https://onepagelove.com/split">Split Template</a>
-                        by <a href="https://onepagelove.com">One Page Love</a></p>
-                    <!-- 
-				To edit this credit you can remove the CC3.0 license for only $5 here: https://onepagelove.com/split 
-				this really helps contribute towards us developing more templates and means the world to me!
-				Cheers, Rob (@robhope)
-                -->
+                    <div class="mt-1">
+                        <a href="https://openinventorysystem.github.io/student-mobile/"
+                            class="btn bttn-slant bttn-sm bttn-light bttn-outline">
+                            <i class="fa fa-code mr-1"></i> Student App API Reference
+                        </a>
+                    </div>
+                    <div class="mt-3">
+                        <a href="https://github.com/openinventorysystem"
+                            class="btn bttn-slant bttn-sm bttn-light bttn-outline">
+                            <i class="fa fa-github mr-1"></i> Github
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-sm-6 d-none d-sm-block right animated fadeInRight">
+        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
