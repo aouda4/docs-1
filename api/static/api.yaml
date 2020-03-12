@@ -123,7 +123,7 @@ paths:
         description: ''
       tags:
         - Registration
-  /api/registration/verify:
+  '/api/registration/verify/{token}':
     get:
       summary: Verify Registration Token
       responses:
@@ -173,20 +173,16 @@ paths:
                     message: Invalid token
       operationId: get-api-registration-verify
       description: Verify whether the registration token is valid. If valid returns email and assigned role.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-                  description: Registration token of the user
-              required:
-                - token
-            examples: {}
+      requestBody: {}
       tags:
         - Registration
+    parameters:
+      - schema:
+          type: string
+        name: token
+        in: path
+        required: true
+        description: Registration token of the user
   /api/registrar/roles:
     get:
       summary: List all available roles
