@@ -1,13 +1,13 @@
 openapi: 3.0.0
 info:
-  title: SmartLab API
+  title: Open Inventory API
   version: 0.0.1
   contact:
-    name: smartlab-technologies
-    email: kdsuneraavinash@gmail.com
+    name: openinventoryorg
+    email: openinventorysystem@gmail.com
   license:
     name: MIT
-  description: This is the api endpoint documentation for startLAB project - a inventory management application created specifically for computer labs.
+  description: This is the api endpoint documentation for Open Inventory project - an inventory management application created specifically for computer labs.
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -173,7 +173,6 @@ paths:
                     message: Invalid token
       operationId: get-api-registration-verify
       description: Verify whether the registration token is valid. If valid returns email and assigned role.
-      requestBody: {}
       tags:
         - Registration
     parameters:
@@ -221,10 +220,10 @@ paths:
         List all the roles
 
         > Required Permission Level: REGISTRAR
-      security:
-        - token: []
       tags:
         - Registrar
+      security:
+        - token: []
     parameters: []
   /api/registrar/token:
     put:
@@ -329,6 +328,279 @@ paths:
         description: ''
       tags:
         - Registrar
+  '/api/labs/{id}':
+    put:
+      summary: Create Lab by ID
+      operationId: put-api-labs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lab'
+              examples:
+                example:
+                  value:
+                    id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
+                    title: First Lab
+                    subtitle: hello world
+                    updatedAt: '2020-03-14T22:48:01.969Z'
+                    createdAt: '2020-03-14T22:48:01.969Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b80201 already exists.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        This creates a lab with the given id and data. This will send an error if data is invalid or the lab already exists.
+
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabRequest'
+            examples:
+              example:
+                value:
+                  title: First Lab
+                  subtitle: hello world
+        description: ''
+      tags:
+        - Labs
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Id of the lab
+    patch:
+      summary: Update Lab Data
+      operationId: patch-api-labs-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lab'
+              examples:
+                example:
+                  value:
+                    id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
+                    title: Updated First Lab
+                    subtitle: hello world
+                    image: null
+                    createdAt: '2020-03-14T22:48:01.969Z'
+                    updatedAt: '2020-03-14T22:58:48.900Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        This updates a lab with the given id and data. This will send an error if data is invalid or the lab does not exist.
+
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabRequest'
+            examples:
+              example:
+                value:
+                  title: First Lab
+                  subtitle: hello world
+          application/xml:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Title of the lab
+                subtitle:
+                  type: string
+                  description: Subtitle of the lab
+                image:
+                  type: string
+                  format: uri
+                  description: Image URL of the lab
+              required:
+                - title
+                - subtitle
+            examples:
+              example:
+                value:
+                  title: Updated First Lab
+                  subtitle: hello world
+        description: ''
+      tags:
+        - Labs
+    delete:
+      summary: Delete Lab
+      operationId: delete-api-labs-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        This deletes a lab with the given id. This will send an error if data is invalid or the lab does not exist.
+
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+      tags:
+        - Labs
+  /api/labs/create:
+    post:
+      summary: Create Lab
+      operationId: post-api-labs-create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lab'
+              examples:
+                example:
+                  value:
+                    id: 424b82a3-025c-48ad-8961-8400a0d43307
+                    title: Second Lab
+                    subtitle: hello world
+                    image: null
+                    updatedAt: '2020-03-14T23:10:32.525Z'
+                    createdAt: '2020-03-14T23:10:32.525Z'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabRequest'
+              examples:
+                example:
+                  value:
+                    message: '"title" is required'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        Creates a new lab with the given data.
+        ID will be auto assigned.
+
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LabRequest'
+            examples:
+              example:
+                value:
+                  title: Second Lab
+                  subtitle: hello world
+      tags:
+        - Labs
+  /api/labs/list:
+    get:
+      summary: List all Labs
+      tags:
+        - Labs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  labs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Lab'
+              examples:
+                example:
+                  value:
+                    labs:
+                      - id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
+                        title: Updated First Lab
+                        subtitle: hello world
+                        image: null
+                        createdAt: '2020-03-14T22:48:01.969Z'
+                        updatedAt: '2020-03-14T22:58:48.900Z'
+                      - id: 424b82a3-025c-48ad-8961-8400a0d43307
+                        title: Second Lab
+                        subtitle: hello world
+                        image: null
+                        createdAt: '2020-03-14T23:10:32.525Z'
+                        updatedAt: '2020-03-14T23:10:32.525Z'
+      operationId: get-api-labs-list
+      description: Lists all labs in the system
 components:
   schemas:
     Role:
@@ -351,19 +623,12 @@ components:
           description: Error Message
       required:
         - message
-      x-examples:
-        example:
-          value:
-            message: Invalid details provided. Verification failed.
+      x-examples: {}
       description: ''
     Registration-Role-Assign:
       title: Registration Token Generation Request
       type: object
-      x-examples:
-        example:
-          value:
-            email: kdsuneraavinash@gmail.com
-            role: 776ef843-eb7f-4702-b572-23ef556b8d37
+      x-examples: {}
       description: ''
       properties:
         email:
@@ -408,6 +673,57 @@ components:
         - permissions
         - role
         - roleId
+    Lab:
+      title: Lab
+      type: object
+      description: Lab Object
+      x-examples: {}
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Id of the lab
+        title:
+          type: string
+          description: Title of the lab
+        subtitle:
+          type: string
+          description: Subtitle of the lab
+        image:
+          type: string
+          description: Image URL of the lab
+          format: uri
+        updatedAt:
+          type: string
+          format: date-time
+          description: Object creation date
+        createdAt:
+          type: string
+          format: date-time
+          description: Object last update date
+      required:
+        - id
+        - title
+        - subtitle
+    LabRequest:
+      title: Lab Request
+      type: object
+      description: Lab Object used to request creation/updating
+      properties:
+        title:
+          type: string
+          description: Title of the lab
+        subtitle:
+          type: string
+          description: Subtitle of the lab
+        image:
+          type: string
+          description: Image URL of the lab
+          format: uri
+      required:
+        - title
+        - subtitle
+      x-examples: {}
   securitySchemes:
     token:
       name: token
@@ -418,3 +734,4 @@ tags:
   - name: Registration
   - name: Login
   - name: Registrar
+  - name: Labs
