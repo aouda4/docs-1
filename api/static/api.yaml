@@ -601,6 +601,20 @@ paths:
                         updatedAt: '2020-03-14T23:10:32.525Z'
       operationId: get-api-labs-list
       description: Lists all labs in the system
+  /api/login/verify:
+    get:
+      summary: Verify login token
+      tags:
+        - Login
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      operationId: get-api-login-verify
+      security:
+        - token: []
+      description: Verifies the token used to access this endpoint. This gives 200 status if authenticated. Otherwise this gives 401 status.
 components:
   schemas:
     Role:
