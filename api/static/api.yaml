@@ -218,7 +218,6 @@ paths:
       operationId: get-api-list-roles
       description: |-
         List all the roles
-
         > Required Permission Level: REGISTRAR
       tags:
         - Registrar
@@ -254,8 +253,6 @@ paths:
       operationId: get-api-registrar-token-generate
       description: |-
         Theis sends a request to generate a token for a specified address to create new account on the provided role. If the account is already created or if there is an already pending invite, this will also send an error status.
-
-
         > Required Permission Level: REGISTRAR
       parameters: []
       requestBody:
@@ -305,8 +302,6 @@ paths:
                     message: Insufficient permissions
       description: |-
         Theis sends a request to delete a token for a specified address. If the account is already created or if there isn't an already pending invite, this will also send an error status.
-
-
         > Required Permission Level: REGISTRAR
       security:
         - token: []
@@ -369,7 +364,6 @@ paths:
                     message: Insufficient permissions
       description: |-
         This creates a lab with the given id and data. This will send an error if data is invalid or the lab already exists.
-
         > Required Permission Level: ADMINISTRATOR
       security:
         - token: []
@@ -434,7 +428,6 @@ paths:
                     message: Insufficient permissions
       description: |-
         This updates a lab with the given id and data. This will send an error if data is invalid or the lab does not exist.
-
         > Required Permission Level: ADMINISTRATOR
       security:
         - token: []
@@ -501,7 +494,6 @@ paths:
                     message: Insufficient permissions
       description: |-
         This deletes a lab with the given id. This will send an error if data is invalid or the lab does not exist.
-
         > Required Permission Level: ADMINISTRATOR
       security:
         - token: []
@@ -550,7 +542,6 @@ paths:
       description: |-
         Creates a new lab with the given data.
         ID will be auto assigned.
-
         > Required Permission Level: ADMINISTRATOR
       security:
         - token: []
@@ -562,7 +553,7 @@ paths:
             examples:
               example:
                 value:
-                  title: Second Lab
+                  title: Second lab
                   subtitle: hello world
       tags:
         - Labs
@@ -615,6 +606,262 @@ paths:
       security:
         - token: []
       description: Verifies the token used to access this endpoint. This gives 200 status if authenticated. Otherwise this gives 401 status.
+  /api/roles/create:
+    post:
+      summary: Create a new role
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+              examples:
+                example:
+                  value:
+                    id: 6c363a0b-6a64-469a-b098-92515733a163
+                    name: instructor
+                    permissions:
+                      - Administrator
+                      - LabManager
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: "Email isn't registered in the system"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      operationId: post-api-roles-create
+      description: Create a new role with name and granted permission array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+            examples:
+              example:
+                value:
+                  name: instructor
+                  permissions:
+                    - Administrator
+                    - LabManager
+        description: ''
+      security:
+        - token: []
+      tags:
+        - Role
+  /api/roles/list:
+    get:
+      summary: List all Roles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+              examples:
+                example:
+                  value:
+                    roles:
+                      - id: 6c363a0b-6a64-469a-b098-92515733a163
+                        name: instructor
+                        permissions:
+                          - Administrator
+                          - LabManager
+                      - id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
+                        name: instructor
+                        permissions:
+                          - Administrator
+                          - LabManager
+                          - Requester
+                          - Registrar
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: "Email isn't registered in the system"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      operationId: get-api-roles-list
+      description: Lists all roles in the system
+      security:
+        - token: []
+      tags:
+        - Role
+  '/api/roles/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Create Role by ID
+      tags:
+        - Role
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: "Email isn't registered in the system"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      operationId: get-api-roles-id
+      description: ' GET the name, permission of a role of a given id'
+      security:
+        - token: []
+    patch:
+      summary: Update Lab by ID
+      operationId: patch-api-roles-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: "Email isn't registered in the system"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: 'UPDATE the name, permission of a role of a given id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        description: ''
+      tags:
+        - Role
+    delete:
+      summary: Delete Lab by ID
+      operationId: delete-api-roles-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: "Email isn't registered in the system"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: ' DELETE the role object of a given id'
+      security:
+        - token: []
+      tags:
+        - Role
+  /api/permissions/all:
+    get:
+      summary: Get all permissions
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                example:
+                  value:
+                    permissons:
+                      - Administrator
+                      - LabManager
+                      - Requester
+                      - Registrar
+                      - InventoryManager
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      operationId: get-api-permissions
+      description: Get all permissions that can be given to users
+      security:
+        - token: []
+    parameters: []
 components:
   schemas:
     Role:
@@ -625,9 +872,14 @@ components:
           type: string
         name:
           type: string
+        permissions:
+          type: array
+          items: {}
       required:
         - id
         - name
+      x-examples:
+        example-1: {}
     Error:
       title: Error
       type: object
@@ -712,9 +964,9 @@ components:
           format: date-time
           description: Object creation date
         createdAt:
-          type: string
           format: date-time
           description: Object last update date
+          type: string
       required:
         - id
         - title
@@ -738,6 +990,15 @@ components:
         - title
         - subtitle
       x-examples: {}
+    RoleRequest:
+      title: RoleRequest
+      type: object
+      properties:
+        name:
+          type: string
+        permissions:
+          type: array
+          items: {}
   securitySchemes:
     token:
       name: token
@@ -749,3 +1010,4 @@ tags:
   - name: Login
   - name: Registrar
   - name: Labs
+  - name: Role
