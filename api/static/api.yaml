@@ -9,7 +9,7 @@ info:
     name: MIT
   description: This is the api endpoint documentation for Open Inventory project - an inventory management application created specifically for computer labs.
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:3000/'
 paths:
   /api/login:
     post:
@@ -633,7 +633,7 @@ paths:
               examples:
                 example:
                   value:
-                    message: "Email isn't registered in the system"
+                    message: '"name" is required'
         '401':
           description: Unauthorized
           content:
@@ -694,16 +694,6 @@ paths:
                           - LabManager
                           - Requester
                           - Registrar
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              examples:
-                example:
-                  value:
-                    message: "Email isn't registered in the system"
         '401':
           description: Unauthorized
           content:
@@ -738,6 +728,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Role'
+              examples:
+                example-1:
+                  value:
+                    id: 6c363a0b-6a64-469a-b098-92515733a163
+                    name: instructor
+                    permissions:
+                      - Administrator
+                      - LabManager
         '400':
           description: Bad Request
           content:
@@ -747,7 +745,7 @@ paths:
               examples:
                 example:
                   value:
-                    message: "Email isn't registered in the system"
+                    message: '"id" must be a valid GUID'
         '401':
           description: Unauthorized
           content:
@@ -772,6 +770,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Role'
+              examples:
+                example:
+                  value:
+                    id: 6c363a0b-6a64-469a-b098-92515733a163
+                    name: instructor
+                    permissions:
+                      - Administrator
+                      - LabManager
         '400':
           description: Bad Request
           content:
@@ -781,7 +787,7 @@ paths:
               examples:
                 example:
                   value:
-                    message: "Email isn't registered in the system"
+                    message: '"id" must be a valid GUID'
         '401':
           description: Unauthorized
           content:
@@ -816,7 +822,7 @@ paths:
               examples:
                 example:
                   value:
-                    message: "Email isn't registered in the system"
+                    message: '"id" must be a valid GUID'
         '401':
           description: Unauthorized
           content:
@@ -832,7 +838,7 @@ paths:
         - token: []
       tags:
         - Role
-  /api/permissions/all:
+  /api/permissions/roles:
     get:
       summary: Get all permissions
       tags: []
@@ -842,8 +848,11 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items: {}
+                type: object
+                properties:
+                  permissions:
+                    type: array
+                    items: {}
               examples:
                 example:
                   value:
@@ -857,6 +866,8 @@ paths:
           description: Bad Request
         '401':
           description: Unauthorized
+        '':
+          description: ''
       operationId: get-api-permissions
       description: Get all permissions that can be given to users
       security:
@@ -867,6 +878,12 @@ components:
     Role:
       title: Role
       type: object
+      x-examples:
+        example-1: {}
+      description: |-
+        name should be unique.
+        permissions should be an array with the role permissions that are provided. To find the permissions use GET /api/permissions/roles
+        The permissions array should contain at least one permission
       properties:
         id:
           type: string
@@ -878,8 +895,7 @@ components:
       required:
         - id
         - name
-      x-examples:
-        example-1: {}
+        - permissions
     Error:
       title: Error
       type: object
@@ -999,6 +1015,15 @@ components:
         permissions:
           type: array
           items: {}
+      required:
+        - name
+        - permissions
+      description: |-
+        name should be unique.
+        permissions should be an array with the role permissions that are provided. To find the permissions use GET /api/permissions/roles
+        The permissions array should contain at least one permission
+      x-examples:
+        example-1: {}
   securitySchemes:
     token:
       name: token
@@ -1011,3 +1036,4 @@ tags:
   - name: Registrar
   - name: Labs
   - name: Role
+
