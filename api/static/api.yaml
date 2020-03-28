@@ -386,6 +386,126 @@ paths:
                     - user2@gmail.com
                     - instructor@gmail.com
                   role: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+    get:
+      summary: List all tokens
+      operationId: get-api-registrar-token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tokens:
+                    type: array
+                    items:
+                      type: object
+                      description: Token
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                          description: Email address
+                        valid:
+                          type: boolean
+                          description: Whether the token was accepted or not
+                        Role:
+                          type: object
+                          required:
+                            - id
+                            - name
+                          description: Information of the role assigned
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              description: ID of the role
+                            name:
+                              type: string
+                              description: Name of the role
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: Last updated time
+                      required:
+                        - email
+                        - valid
+                        - Role
+                        - updatedAt
+                required:
+                  - tokens
+              examples:
+                example:
+                  value:
+                    tokens:
+                      - email: supun@gmail.com
+                        valid: true
+                        updatedAt: '2020-03-27T21:12:39.063Z'
+                        Role:
+                          id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+                          name: instructor
+                      - email: instructor@gmail.com
+                        valid: true
+                        updatedAt: '2020-03-27T20:41:12.766Z'
+                        Role:
+                          id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+                          name: instructor
+                      - email: user2@gmail.com
+                        valid: true
+                        updatedAt: '2020-03-27T20:41:12.762Z'
+                        Role:
+                          id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+                          name: instructor
+                      - email: gayal@neomerce.com
+                        valid: true
+                        updatedAt: '2020-03-19T06:25:03.946Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+                      - email: admin@neomerce.com
+                        valid: false
+                        updatedAt: '2020-03-18T21:03:09.924Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+                      - email: user@gmail.com
+                        valid: false
+                        updatedAt: '2020-03-17T20:06:58.960Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+                      - email: kdsuneraavinash@gmail.com
+                        valid: false
+                        updatedAt: '2020-03-12T14:28:22.194Z'
+                        Role:
+                          id: 8837ddee-97fc-4a5c-af02-01bf6e6eab65
+                          name: Student
+                      - email: admin@admin.com
+                        valid: false
+                        updatedAt: '2020-03-12T08:18:55.674Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        Lists all tokens
+        Note: Only the most recent 20 tokens will be sent
+
+        > Required Permission Level: REGISTRAR
+      security:
+        - token: []
+      tags:
+        - Registrar
   '/api/labs/{id}':
     put:
       summary: Create Lab by ID
