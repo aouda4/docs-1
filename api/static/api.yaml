@@ -606,9 +606,9 @@ paths:
       security:
         - token: []
       description: Verifies the token used to access this endpoint. This gives 200 status if authenticated. Otherwise this gives 401 status.
-  /api/permissions/roles:
+  /api/permissions/list:
     get:
-      summary: Get all permissions
+      summary: List all permissions
       description: Get all permissions that can be given to users
       operationId: get-api-permissions
       responses:
@@ -621,7 +621,8 @@ paths:
                 properties:
                   permissions:
                     type: array
-                    items: {}
+                    items:
+                      type: string
               examples:
                 example:
                   value:
@@ -674,7 +675,7 @@ paths:
       operationId: get-api-roles-id
       description: "Get the name, permission of a role of a given id"
     patch:
-      summary: Update Lab by ID
+      summary: Update Role by ID
       operationId: patch-api-roles-id
       responses:
         "200":
@@ -732,7 +733,7 @@ paths:
       security:
         - token: []
     delete:
-      summary: Delete Lab by ID
+      summary: Delete Role by ID
       operationId: delete-api-roles-id
       responses:
         "200":
@@ -779,17 +780,57 @@ paths:
                   roles:
                     type: array
                     items:
+<<<<<<< Updated upstream
                       $ref: "#/components/schemas/Role"
+=======
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: ID of the role
+                        name:
+                          type: string
+                          description: Name of the role
+                        RolePermissions:
+                          type: array
+                          description: Permissions of the role
+                          items:
+                            type: object
+                            description: A permission object
+                            properties:
+                              name:
+                                type: string
+                                description: Name of the permission
+                            required:
+                              - name
+                      required:
+                        - id
+                        - name
+                        - RolePermissions
+                required:
+                  - roles
+>>>>>>> Stashed changes
               examples:
                 example:
                   value:
                     roles:
                       - id: 8837ddee-97fc-4a5c-af02-01bf6e6eab65
                         name: Student
+                        RolePermissions:
+                          - name: REQUESTER
                       - id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                         name: Administrator
+                        RolePermissions:
+                          - name: ADMINISTRATOR
                       - id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                         name: instructor
+                        RolePermissions:
+                          - name: REGISTRAR
+                          - name: ADMINISTRATOR
+                      - id: eb458fcc-3eea-4d78-bb40-98b66adf80c0
+                        name: instructor 2
+                        RolePermissions:
+                          - name: ADMINISTRATOR
       operationId: get-api-roles-list
       description: Lists all roles in the system
       tags:
