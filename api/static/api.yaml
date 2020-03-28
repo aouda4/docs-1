@@ -9,7 +9,7 @@ info:
     name: MIT
   description: This is the api endpoint documentation for Open Inventory project - an inventory management application created specifically for computer labs.
 servers:
-  - url: "http://openinventory.org"
+  - url: 'http://openinventory.org'
 paths:
   /api/login:
     post:
@@ -17,7 +17,7 @@ paths:
       tags:
         - Login
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -28,7 +28,7 @@ paths:
                     type: string
                     description: JWT Token for the user
                   user:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
                 required:
                   - token
               examples:
@@ -44,12 +44,12 @@ paths:
                         - REQUESTER
                       role: Student
                       roleId: 9e7cac09-2ab3-4d70-ba58-fa165f8cb401
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -75,20 +75,20 @@ paths:
                 value:
                   email: admin@admin.com
                   password: password
-        description: ""
+        description: ''
   /api/registration/register:
     post:
       summary: Register an account
       operationId: post-api-registration-register
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -120,14 +120,14 @@ paths:
                   firstName: Demo
                   lastName: User
                   password: password
-        description: ""
+        description: ''
       tags:
         - Registration
-  "/api/registration/verify/{token}":
+  '/api/registration/verify/{token}':
     get:
       summary: Verify Registration Token
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -161,12 +161,12 @@ paths:
                     roleId: beb4667e-20a5-4bc9-b2f5-5c9d1df1be55
                     Role:
                       name: Administrator
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -186,7 +186,7 @@ paths:
     get:
       summary: List all available roles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -196,7 +196,7 @@ paths:
                   roles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Role"
+                      $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -205,12 +205,12 @@ paths:
                         name: REQUESTER
                       - id: 40d1d03b-8305-45c3-ab9c-4d6c56022976
                         name: ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -228,24 +228,24 @@ paths:
     put:
       summary: Create invite token for an email
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"role" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -262,13 +262,13 @@ paths:
               type: object
               properties:
                 requests:
-                  $ref: "#/components/schemas/Registration-Role-Assign"
+                  $ref: '#/components/schemas/Registration-Role-Assign'
             examples:
               example:
                 value:
                   email: user@gmail.com
                   role: 42647147-69d2-4c2b-8c3b-d3cc30dfdd97
-        description: ""
+        description: ''
       security:
         - token: []
       tags:
@@ -278,24 +278,24 @@ paths:
       summary: Delete invite token for an email
       operationId: delete-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: User user@gmail.com is not sent an invitation link or ther user has created a account.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -320,44 +320,227 @@ paths:
               example:
                 value:
                   email: gayal@gmail.com
-        description: ""
+        description: ''
       tags:
         - Registrar
-  "/api/labs/{id}":
-    put:
-      summary: Create Lab by ID
-      operationId: put-api-labs
+    post:
+      summary: Create invitation tokens for a list of emails
+      operationId: post-api-registrar-token
       responses:
-        "200":
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: User user2@gmail.com is already sent an invitation link or account already created
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        Theis sends a request to generate **tokens** for a specified addresses to create new accounts on the provided role. If the account is already created or if there is an already pending invite, this will also send an error status and no tokens will be generated.
+
+        Note: Email sending won't be monitored.
+
+        > Required Permission Level: REGISTRAR
+      tags:
+        - Registrar
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  format: uuid
+                  description: Role ID to assign
+                emails:
+                  type: array
+                  minItems: 1
+                  description: List of emails to send tokens
+                  items:
+                    type: string
+              required:
+                - emails
+                - role
+              description: ''
+            examples:
+              example:
+                value:
+                  emails:
+                    - user2@gmail.com
+                    - instructor@gmail.com
+                  role: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+    get:
+      summary: List all tokens
+      operationId: get-api-registrar-token
+      responses:
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                type: object
+                properties:
+                  tokens:
+                    type: array
+                    items:
+                      type: object
+                      description: Token
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                          description: Email address
+                        valid:
+                          type: boolean
+                          description: Whether the token was accepted or not
+                        Role:
+                          type: object
+                          required:
+                            - id
+                            - name
+                          description: Information of the role assigned
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              description: ID of the role
+                            name:
+                              type: string
+                              description: Name of the role
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: Last updated time
+                      required:
+                        - email
+                        - valid
+                        - Role
+                        - updatedAt
+                required:
+                  - tokens
+              examples:
+                example:
+                  value:
+                    tokens:
+                      - email: supun@gmail.com
+                        valid: true
+                        updatedAt: '2020-03-27T21:12:39.063Z'
+                        Role:
+                          id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+                          name: instructor
+                      - email: instructor@gmail.com
+                        valid: true
+                        updatedAt: '2020-03-27T20:41:12.766Z'
+                        Role:
+                          id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+                          name: instructor
+                      - email: user2@gmail.com
+                        valid: true
+                        updatedAt: '2020-03-27T20:41:12.762Z'
+                        Role:
+                          id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
+                          name: instructor
+                      - email: gayal@neomerce.com
+                        valid: true
+                        updatedAt: '2020-03-19T06:25:03.946Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+                      - email: admin@neomerce.com
+                        valid: false
+                        updatedAt: '2020-03-18T21:03:09.924Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+                      - email: user@gmail.com
+                        valid: false
+                        updatedAt: '2020-03-17T20:06:58.960Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+                      - email: kdsuneraavinash@gmail.com
+                        valid: false
+                        updatedAt: '2020-03-12T14:28:22.194Z'
+                        Role:
+                          id: 8837ddee-97fc-4a5c-af02-01bf6e6eab65
+                          name: Student
+                      - email: admin@admin.com
+                        valid: false
+                        updatedAt: '2020-03-12T08:18:55.674Z'
+                        Role:
+                          id: 5dae708f-550a-48eb-a3a8-46f4f316063b
+                          name: Administrator
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                example:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        Lists all tokens
+        Note: Only the most recent 20 tokens will be sent
+
+        > Required Permission Level: REGISTRAR
+      security:
+        - token: []
+      tags:
+        - Registrar
+  '/api/labs/{id}':
+    put:
+      summary: Create Lab by ID
+      operationId: put-api-labs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
                     id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
                     title: First Lab
                     subtitle: hello world
-                    updatedAt: "2020-03-14T22:48:01.969Z"
-                    createdAt: "2020-03-14T22:48:01.969Z"
-        "400":
+                    updatedAt: '2020-03-14T22:48:01.969Z'
+                    createdAt: '2020-03-14T22:48:01.969Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b80201 already exists.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -371,13 +554,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
                   title: First Lab
                   subtitle: hello world
-        description: ""
+        description: ''
       tags:
         - Labs
     parameters:
@@ -391,12 +574,12 @@ paths:
       summary: Update Lab Data
       operationId: patch-api-labs-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -404,24 +587,24 @@ paths:
                     title: Updated First Lab
                     subtitle: hello world
                     image: null
-                    createdAt: "2020-03-14T22:48:01.969Z"
-                    updatedAt: "2020-03-14T22:58:48.900Z"
-        "400":
+                    createdAt: '2020-03-14T22:48:01.969Z'
+                    updatedAt: '2020-03-14T22:58:48.900Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -435,7 +618,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
@@ -463,31 +646,31 @@ paths:
                 value:
                   title: Updated First Lab
                   subtitle: hello world
-        description: ""
+        description: ''
       tags:
         - Labs
     delete:
       summary: Delete Lab
       operationId: delete-api-labs-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -504,12 +687,12 @@ paths:
       summary: Create Lab
       operationId: post-api-labs-create
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -517,24 +700,24 @@ paths:
                     title: Second Lab
                     subtitle: hello world
                     image: null
-                    updatedAt: "2020-03-14T23:10:32.525Z"
-                    createdAt: "2020-03-14T23:10:32.525Z"
-        "400":
+                    updatedAt: '2020-03-14T23:10:32.525Z'
+                    createdAt: '2020-03-14T23:10:32.525Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LabRequest"
+                $ref: '#/components/schemas/LabRequest'
               examples:
                 example:
                   value:
                     message: '"title" is required'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -549,7 +732,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
@@ -563,7 +746,7 @@ paths:
       tags:
         - Labs
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -573,7 +756,7 @@ paths:
                   labs:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Lab"
+                      $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -582,14 +765,14 @@ paths:
                         title: Updated First Lab
                         subtitle: hello world
                         image: null
-                        createdAt: "2020-03-14T22:48:01.969Z"
-                        updatedAt: "2020-03-14T22:58:48.900Z"
+                        createdAt: '2020-03-14T22:48:01.969Z'
+                        updatedAt: '2020-03-14T22:58:48.900Z'
                       - id: 424b82a3-025c-48ad-8961-8400a0d43307
                         title: Second Lab
                         subtitle: hello world
                         image: null
-                        createdAt: "2020-03-14T23:10:32.525Z"
-                        updatedAt: "2020-03-14T23:10:32.525Z"
+                        createdAt: '2020-03-14T23:10:32.525Z'
+                        updatedAt: '2020-03-14T23:10:32.525Z'
       operationId: get-api-labs-list
       description: Lists all labs in the system
   /api/login/verify:
@@ -598,9 +781,9 @@ paths:
       tags:
         - Login
       responses:
-        "200":
+        '200':
           description: OK
-        "401":
+        '401':
           description: Unauthorized
       operationId: get-api-login-verify
       security:
@@ -612,7 +795,7 @@ paths:
       description: Get all permissions that can be given to users
       operationId: get-api-permissions
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -632,12 +815,12 @@ paths:
                       - REQUESTER
                       - REGISTRAR
                       - INVENTORY_MANAGER
-        "":
-          description: ""
+        '':
+          description: ''
       tags:
         - Role
     parameters: []
-  "/api/roles/{id}":
+  '/api/roles/{id}':
     parameters:
       - schema:
           type: string
@@ -649,12 +832,12 @@ paths:
       tags:
         - Role
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -662,28 +845,28 @@ paths:
                     name: Administrator
                     permissions:
                       - ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
       operationId: get-api-roles-id
-      description: "Get the name, permission of a role of a given id"
+      description: 'Get the name, permission of a role of a given id'
     patch:
       summary: Update Role by ID
       operationId: patch-api-roles-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -692,22 +875,22 @@ paths:
                     permissions:
                       - REGISTRAR
                       - ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -719,7 +902,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
             examples:
               example:
                 value:
@@ -727,7 +910,7 @@ paths:
                   permissions:
                     - REGISTRAR
                     - ADMINISTRATOR
-        description: ""
+        description: ''
       tags:
         - Role
       security:
@@ -736,24 +919,24 @@ paths:
       summary: Delete Role by ID
       operationId: delete-api-roles-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -770,7 +953,7 @@ paths:
     get:
       summary: List all Roles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -780,9 +963,6 @@ paths:
                   roles:
                     type: array
                     items:
-<<<<<<< Updated upstream
-                      $ref: "#/components/schemas/Role"
-=======
                       type: object
                       properties:
                         id:
@@ -809,7 +989,6 @@ paths:
                         - RolePermissions
                 required:
                   - roles
->>>>>>> Stashed changes
               examples:
                 example:
                   value:
@@ -839,12 +1018,12 @@ paths:
     post:
       summary: Create a new role
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -852,22 +1031,22 @@ paths:
                     name: instructor
                     permissions:
                       - REGISTRAR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"name" is required'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -880,14 +1059,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
             examples:
               example:
                 value:
                   name: Instructor
                   permissions:
                     - REGISTRAR
-        description: ""
+        description: ''
       security:
         - token: []
       tags:
@@ -925,12 +1104,12 @@ components:
       required:
         - message
       x-examples: {}
-      description: ""
+      description: ''
     Registration-Role-Assign:
       title: Registration Token Generation Request
       type: object
       x-examples: {}
-      description: ""
+      description: ''
       properties:
         email:
           type: string
