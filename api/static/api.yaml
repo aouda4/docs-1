@@ -9,7 +9,7 @@ info:
     name: MIT
   description: This is the api endpoint documentation for Open Inventory project - an inventory management application created specifically for computer labs.
 servers:
-  - url: "http://openinventory.org"
+  - url: 'http://openinventory.org'
 paths:
   /api/login:
     post:
@@ -17,7 +17,7 @@ paths:
       tags:
         - Login
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -28,7 +28,7 @@ paths:
                     type: string
                     description: JWT Token for the user
                   user:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
                 required:
                   - token
               examples:
@@ -44,18 +44,20 @@ paths:
                         - REQUESTER
                       role: Student
                       roleId: 9e7cac09-2ab3-4d70-ba58-fa165f8cb401
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: "Email isn't registered in the system"
       operationId: get-api-login
-      description: Login a user using email and password.
+      description: |-
+        Login a user using email and password.
+        > Required Permission Level: notLoggedIn
       requestBody:
         content:
           application/json:
@@ -75,25 +77,27 @@ paths:
                 value:
                   email: admin@admin.com
                   password: password
-        description: ""
+        description: ''
   /api/registration/register:
     post:
       summary: Register an account
       operationId: post-api-registration-register
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"firstName" is required'
-      description: Registers a user using the given token and details
+      description: |-
+        Registers a user using the given token and details
+        > Required Permission Level: notLoggedIn
       requestBody:
         content:
           application/json:
@@ -120,14 +124,14 @@ paths:
                   firstName: Demo
                   lastName: User
                   password: password
-        description: ""
+        description: ''
       tags:
         - Registration
-  "/api/registration/verify/{token}":
+  '/api/registration/verify/{token}':
     get:
       summary: Verify Registration Token
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -161,18 +165,20 @@ paths:
                     roleId: beb4667e-20a5-4bc9-b2f5-5c9d1df1be55
                     Role:
                       name: Administrator
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Invalid token
       operationId: get-api-registration-verify
-      description: Verify whether the registration token is valid. If valid returns email and assigned role.
+      description: |-
+        Verify whether the registration token is valid. If valid returns email and assigned role.
+        > Required Permission Level: notLoggedIn
       tags:
         - Registration
     parameters:
@@ -186,7 +192,7 @@ paths:
     get:
       summary: List all available roles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -196,7 +202,7 @@ paths:
                   roles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Role"
+                      $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -205,12 +211,12 @@ paths:
                         name: REQUESTER
                       - id: 40d1d03b-8305-45c3-ab9c-4d6c56022976
                         name: ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -228,24 +234,24 @@ paths:
     put:
       summary: Create invite token for an email
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"role" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -262,13 +268,13 @@ paths:
               type: object
               properties:
                 requests:
-                  $ref: "#/components/schemas/Registration-Role-Assign"
+                  $ref: '#/components/schemas/Registration-Role-Assign'
             examples:
               example:
                 value:
                   email: user@gmail.com
                   role: 42647147-69d2-4c2b-8c3b-d3cc30dfdd97
-        description: ""
+        description: ''
       security:
         - token: []
       tags:
@@ -278,24 +284,24 @@ paths:
       summary: Delete invite token for an email
       operationId: delete-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: User user@gmail.com is not sent an invitation link or ther user has created a account.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -320,31 +326,31 @@ paths:
               example:
                 value:
                   email: gayal@gmail.com
-        description: ""
+        description: ''
       tags:
         - Registrar
     post:
       summary: Create invitation tokens for a list of emails
       operationId: post-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: User user2@gmail.com is already sent an invitation link or account already created
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -378,7 +384,7 @@ paths:
               required:
                 - emails
                 - role
-              description: ""
+              description: ''
             examples:
               example:
                 value:
@@ -390,7 +396,7 @@ paths:
       summary: List all tokens
       operationId: get-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -441,58 +447,58 @@ paths:
                     tokens:
                       - email: supun@gmail.com
                         valid: true
-                        updatedAt: "2020-03-27T21:12:39.063Z"
+                        updatedAt: '2020-03-27T21:12:39.063Z'
                         Role:
                           id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                           name: instructor
                       - email: instructor@gmail.com
                         valid: true
-                        updatedAt: "2020-03-27T20:41:12.766Z"
+                        updatedAt: '2020-03-27T20:41:12.766Z'
                         Role:
                           id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                           name: instructor
                       - email: user2@gmail.com
                         valid: true
-                        updatedAt: "2020-03-27T20:41:12.762Z"
+                        updatedAt: '2020-03-27T20:41:12.762Z'
                         Role:
                           id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                           name: instructor
                       - email: gayal@neomerce.com
                         valid: true
-                        updatedAt: "2020-03-19T06:25:03.946Z"
+                        updatedAt: '2020-03-19T06:25:03.946Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
                       - email: admin@neomerce.com
                         valid: false
-                        updatedAt: "2020-03-18T21:03:09.924Z"
+                        updatedAt: '2020-03-18T21:03:09.924Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
                       - email: user@gmail.com
                         valid: false
-                        updatedAt: "2020-03-17T20:06:58.960Z"
+                        updatedAt: '2020-03-17T20:06:58.960Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
                       - email: kdsuneraavinash@gmail.com
                         valid: false
-                        updatedAt: "2020-03-12T14:28:22.194Z"
+                        updatedAt: '2020-03-12T14:28:22.194Z'
                         Role:
                           id: 8837ddee-97fc-4a5c-af02-01bf6e6eab65
                           name: Student
                       - email: admin@admin.com
                         valid: false
-                        updatedAt: "2020-03-12T08:18:55.674Z"
+                        updatedAt: '2020-03-12T08:18:55.674Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -506,61 +512,61 @@ paths:
         - token: []
       tags:
         - Registrar
-  "/api/labs/{id}":
+  '/api/labs/{id}':
     put:
       summary: Create Lab by ID
       operationId: put-api-labs
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
                     id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
                     title: First Lab
                     subtitle: hello world
-                    updatedAt: "2020-03-14T22:48:01.969Z"
-                    createdAt: "2020-03-14T22:48:01.969Z"
-        "400":
+                    updatedAt: '2020-03-14T22:48:01.969Z'
+                    createdAt: '2020-03-14T22:48:01.969Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b80201 already exists.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Insufficient permissions
       description: |-
         This creates a lab with the given id and data. This will send an error if data is invalid or the lab already exists.
-        > Required Permission Level: ADMINISTRATOR
+        > Required Permission Level: LAB_MANAGER
       security:
         - token: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
                   title: First Lab
                   subtitle: hello world
-        description: ""
+        description: ''
       tags:
         - Labs
     parameters:
@@ -574,12 +580,12 @@ paths:
       summary: Update Lab Data
       operationId: patch-api-labs-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -587,38 +593,38 @@ paths:
                     title: Updated First Lab
                     subtitle: hello world
                     image: null
-                    createdAt: "2020-03-14T22:48:01.969Z"
-                    updatedAt: "2020-03-14T22:58:48.900Z"
-        "400":
+                    createdAt: '2020-03-14T22:48:01.969Z'
+                    updatedAt: '2020-03-14T22:58:48.900Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Insufficient permissions
       description: |-
         This updates a lab with the given id and data. This will send an error if data is invalid or the lab does not exist.
-        > Required Permission Level: ADMINISTRATOR
+        > Required Permission Level: LAB_MANAGER
       security:
         - token: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
@@ -646,38 +652,38 @@ paths:
                 value:
                   title: Updated First Lab
                   subtitle: hello world
-        description: ""
+        description: ''
       tags:
         - Labs
     delete:
       summary: Delete Lab
       operationId: delete-api-labs-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Insufficient permissions
       description: |-
         This deletes a lab with the given id. This will send an error if data is invalid or the lab does not exist.
-        > Required Permission Level: ADMINISTRATOR
+        > Required Permission Level: LAB_MANAGER
       security:
         - token: []
       tags:
@@ -687,12 +693,12 @@ paths:
       summary: Create Lab
       operationId: post-api-labs-create
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -700,24 +706,24 @@ paths:
                     title: Second Lab
                     subtitle: hello world
                     image: null
-                    updatedAt: "2020-03-14T23:10:32.525Z"
-                    createdAt: "2020-03-14T23:10:32.525Z"
-        "400":
+                    updatedAt: '2020-03-14T23:10:32.525Z'
+                    createdAt: '2020-03-14T23:10:32.525Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LabRequest"
+                $ref: '#/components/schemas/LabRequest'
               examples:
                 example:
                   value:
                     message: '"title" is required'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -725,14 +731,14 @@ paths:
       description: |-
         Creates a new lab with the given data.
         ID will be auto assigned.
-        > Required Permission Level: ADMINISTRATOR
+        > Required Permission Level: LABMANAGER
       security:
         - token: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
@@ -746,7 +752,7 @@ paths:
       tags:
         - Labs
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -756,34 +762,51 @@ paths:
                   labs:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Lab"
+                      $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
                     labs:
-                      - id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
-                        title: Updated First Lab
+                      - id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                        title: microsoft lab
                         subtitle: hello world
                         image: null
-                        createdAt: "2020-03-14T22:48:01.969Z"
-                        updatedAt: "2020-03-14T22:58:48.900Z"
-                      - id: 424b82a3-025c-48ad-8961-8400a0d43307
-                        title: Second Lab
+                        createdAt: '2020-04-08T05:36:07.183Z'
+                        updatedAt: '2020-04-08T05:36:07.183Z'
+                        Users:
+                          - id: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+                            firstName: Nimal
+                            lastName: Perera
+                            email: kamal@gmail.com
+                            LabAssign:
+                              labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                              userId: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+                              createdAt: '2020-04-08T10:41:58.049Z'
+                              updatedAt: '2020-04-08T10:41:58.049Z'
+                      - id: f69d4fc9-d897-47d2-8d43-d6aeae9b1682
+                        title: embedded lab
                         subtitle: hello world
                         image: null
-                        createdAt: "2020-03-14T23:10:32.525Z"
-                        updatedAt: "2020-03-14T23:10:32.525Z"
+                        createdAt: '2020-04-08T10:29:33.398Z'
+                        updatedAt: '2020-04-08T10:29:33.398Z'
+                        Users: []
+        '':
+          description: ''
       operationId: get-api-labs-list
-      description: Lists all labs in the system
+      description: |-
+        Lists all labs in the system
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
   /api/login/verify:
     get:
       summary: Verify login token
       tags:
         - Login
       responses:
-        "200":
+        '200':
           description: OK
-        "401":
+        '401':
           description: Unauthorized
       operationId: get-api-login-verify
       security:
@@ -792,15 +815,19 @@ paths:
   /api/permissions/list:
     get:
       summary: List all permissions
-      description: Get all permissions that can be given to users
+      description: |-
+        Get all permissions that can be given to users
+        > Required Permission Level: loggedIn
       operationId: get-api-permissions
       tags:
         - Role
       responses:
-        "200":
+        '200':
           description: OK
+      security:
+        - token: []
     parameters: []
-  "/api/roles/{id}":
+  '/api/roles/{id}':
     parameters:
       - schema:
           type: string
@@ -812,12 +839,12 @@ paths:
       tags:
         - Role
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -825,28 +852,32 @@ paths:
                     name: Administrator
                     permissions:
                       - ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
       operationId: get-api-roles-id
-      description: "Get the name, permission of a role of a given id"
+      description: |-
+        Get the name, permission of a role of a given id
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
     patch:
       summary: Update Role by ID
       operationId: patch-api-roles-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -855,22 +886,22 @@ paths:
                     permissions:
                       - REGISTRAR
                       - ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -882,7 +913,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
             examples:
               example:
                 value:
@@ -890,7 +921,7 @@ paths:
                   permissions:
                     - REGISTRAR
                     - ADMINISTRATOR
-        description: ""
+        description: ''
       tags:
         - Role
       security:
@@ -899,24 +930,24 @@ paths:
       summary: Delete Role by ID
       operationId: delete-api-roles-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -933,7 +964,7 @@ paths:
     get:
       summary: List all Roles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -943,7 +974,7 @@ paths:
                   roles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Role"
+                      $ref: '#/components/schemas/Role'
                 required:
                   - roles
               examples:
@@ -968,19 +999,23 @@ paths:
                         RolePermissions:
                           - name: ADMINISTRATOR
       operationId: get-api-roles-list
-      description: Lists all roles in the system
+      description: |-
+        Lists all roles in the system
+        > Required Permission Level: loggedIn
       tags:
         - Role
+      security:
+        - token: []
   /api/roles/create:
     post:
       summary: Create a new role
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -988,22 +1023,22 @@ paths:
                     name: instructor
                     permissions:
                       - REGISTRAR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"name" is required'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -1016,39 +1051,39 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
             examples:
               example:
                 value:
                   name: Instructor
                   permissions:
                     - REGISTRAR
-        description: ""
+        description: ''
       security:
         - token: []
       tags:
         - Role
-  /api/itemset/list:
+  /api/itemsets/list:
     get:
       summary: Get Itemset list
       tags:
         - Itemset
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ItemSet"
+                  $ref: '#/components/schemas/ItemSet'
               examples:
                 example-1:
                   value:
                     Itemsets:
                       - id: fd2851f9-4f53-4201-9d72-0e1cc168e341
                         title: periscope
-                        image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+                        image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
                         Attributes:
                           - key: rpm
                             defaultValue: null
@@ -1061,13 +1096,13 @@ paths:
                             editable: false
                       - id: 9fda6447-af9e-4ae7-91fe-89e9cbca05a1
                         title: periscript
-                        image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+                        image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
                         Attributes:
                           - key: width
                             defaultValue: 50cm
                             editable: false
                           - key: rpm
-                            defaultValue: "40"
+                            defaultValue: '40'
                             editable: false
                           - key: height
                             defaultValue: null
@@ -1080,31 +1115,36 @@ paths:
                             defaultValue: 50cm
                             editable: false
                           - key: rpm
-                            defaultValue: "40"
+                            defaultValue: '40'
                             editable: false
                           - key: height
                             defaultValue: null
                             editable: true
       operationId: get-api-itemset-list
-      description: Lists all the itemsets
-  "/api/itemset/{id}":
+      description: |-
+        Lists all the itemsets
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+      security:
+        - token: []
+    parameters: []
+  '/api/itemset/{id}':
     get:
       summary: Get itemset
       tags:
         - Itemset
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ItemSet"
+                $ref: '#/components/schemas/ItemSet'
               examples:
                 example-1:
                   value:
                     id: fd2851f9-4f53-4201-9d72-0e1cc168e341
                     title: periscope
-                    image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+                    image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
                     attributes:
                       - key: weight
                         editable: false
@@ -1115,12 +1155,16 @@ paths:
                       - key: rpm
                         editable: true
                         defaultValue: null
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       operationId: get-api-itemset-id
-      description: Get an itemset given by the id
+      description: |-
+        Get an itemset given by the id
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+      security:
+        - token: []
     parameters:
       - schema:
           type: string
@@ -1131,12 +1175,12 @@ paths:
       summary: Update Itemset
       operationId: patch-api-itemset-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ItemSet"
+                $ref: '#/components/schemas/ItemSet'
               examples:
                 example-1:
                   value:
@@ -1148,20 +1192,22 @@ paths:
                         defaultValue: null
                       - key: rpm
                         editable: true
-                        defaultValue: "40"
+                        defaultValue: '40'
                       - key: width
                         editable: false
                         defaultValue: 50cm
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
-      description: Updates an itemset of a given id.
+      description: |-
+        Updates an itemset of a given id.
+        > Required Permission Level: LABMANAGER, INVENTORYMANAGER
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ItemSet"
+              $ref: '#/components/schemas/ItemSet'
             examples:
               example-1:
                 value:
@@ -1173,38 +1219,44 @@ paths:
                       defaultValue: null
                     - key: rpm
                       editable: true
-                      defaultValue: "40"
+                      defaultValue: '40'
                     - key: width
                       editable: false
                       defaultValue: 50cm
-        description: " title should not be previously used for other itemsets."
+        description: ' title should not be previously used for other itemsets.'
       tags:
         - Itemset
+      security:
+        - token: []
     delete:
       summary: Delete Itemset
       operationId: delete-api-itemset-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
-      description: Deletes an itemset with a given id
+      description: |-
+        Deletes an itemset with a given id
+        > Required Permission Level: LABMANAGER, INVENTORYMANAGER
       tags:
         - Itemset
-  /api/itemset/create:
+      security:
+        - token: []
+  /api/itemsets/create:
     post:
       summary: Create Itemset
       operationId: post-api-itemset-create
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
-      description: "Creates a new itemset based on the req body details. "
+      description: "Creates a new itemset based on the req body details. \n> Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER"
       requestBody:
         content:
           application/json:
@@ -1218,7 +1270,7 @@ paths:
                 attributes:
                   type: array
                   items:
-                    $ref: "#/components/schemas/attribute"
+                    $ref: '#/components/schemas/attribute'
               required:
                 - title
                 - image
@@ -1231,16 +1283,596 @@ paths:
                   attributes:
                     - key: height
                       editable: true
-                      defaultValue: null
+                      defaultValue: ''
                     - key: rpm
                       editable: true
-                      defaultValue: "40"
+                      defaultValue: '40'
                     - key: width
                       editable: false
                       defaultValue: 50cm
         description: ">req should contain title, image and attributes. \n>only image can be null.\n>title should be unique to this item set"
       tags:
         - Itemset
+    parameters: []
+  api/items/list:
+    get:
+      summary: List all the items
+      tags:
+        - Items
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    items:
+                      - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        serialNumber: '3456'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+                      - id: bda208d8-b83b-4d88-9451-08dcd3f7aa1c
+                        serialNumber: '123'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+                      - id: 6669559a-066c-461d-99b9-edaa98e5c413
+                        serialNumber: '1234'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+        '400':
+          description: Bad Request
+        '':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+              examples:
+                example:
+                  value:
+                    items:
+                      - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        serialNumber: '3456'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: /dafadfdadsfa
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+                      - id: 12345289-6f39-48d4-9866-ef5d5ed8d846
+                        serialNumber: '3456'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: /dafadfdadsfa
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    items:
+                      - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        serialNumber: '3456'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: image_link
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+                      - id: 11224289-6f39-48d4-9866-ef5d5ed8d846
+                        serialNumber: '3496'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+                        Lab:
+                          id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                          title: microsoft lab
+                          subtitle: hello world
+                          image: null
+      operationId: get-items-list
+      description: |-
+        List all the items
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
+    parameters: []
+  /api/items/transfer:
+    parameters: []
+    post:
+      summary: Transfer Items from a lab to a new lab
+      operationId: postitems-transfer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                    labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+        '400':
+          description: Bad Request
+      description: |-
+        Transfer an item to another lab
+        > Required Permission Level: LAB_MANAGER
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                  labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+        description: item id and the labId of the new lab
+      tags:
+        - Items
+  api/items/create:
+    post:
+      summary: Create an Item
+      operationId: post-items-create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 6669559a-066c-461d-99b9-edaa98e5c413
+                    serialNumber: '1234'
+                    itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                    labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                    attributes:
+                      - key: price
+                        value: '100'
+        '400':
+          description: Bad Request
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  id: df89ccaa-ee34-437b-9ae7-81c3c3e4aad0
+                  serialNumber: '12344'
+                  itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                  labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                  attributes:
+                    - key: price
+                      value: '100'
+      description: "Create an item \n> Required Permission Level: LAB_MANAGER or INVENTORY_MANAGER\nAny LAB_MANAGER can create items while only an INVENTORY_MANAGER assigned to a lab can create"
+      security:
+        - token: []
+      tags:
+        - Items
+    parameters: []
+  'api/items/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get an Item by ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: bda208d8-b83b-4d88-9451-08dcd3f7aa1c
+                    serialNumber: '123'
+                    ItemSet:
+                      id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                      title: transister2
+                      image: imageurl
+                    Lab:
+                      id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                      title: microsoft lab
+                      subtitle: hello world
+                      image: null
+                    ItemAttributes:
+                      - key: height
+                        value: ''
+                      - key: price
+                        value: '100'
+                      - key: rpm
+                        value: '40'
+                      - key: width
+                        value: 50cm
+      operationId: get-items-id
+      requestBody: {}
+      description: |-
+        Get an item of a given ID
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
+      tags:
+        - Items
+    delete:
+      summary: Delete an Item by ID
+      operationId: delete-items-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      description: |-
+        Delete an item with a given ID
+        > Required Permission Level:LAB_MANAGER
+         or INVENTORY_MANAGER
+      security:
+        - token: []
+      requestBody: {}
+      tags:
+        - Items
+    patch:
+      summary: Update an Item by Id
+      operationId: patch-items-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                    serialNumber: '3456'
+                    attributes:
+                      - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        key: height
+                        value: '10'
+                      - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        key: rpm
+                        value: '40'
+                      - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        key: width
+                        value: 50cm
+                      - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        key: price
+                        value: '100'
+        '400':
+          description: Bad Request
+      description: |-
+        Update an item with a given ID
+        > Required Permission Level: LAB_MANAGER or INVENTORY_MANAGER
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  attributes:
+                    - key: height
+                      value: '10'
+                    - key: price
+                      value: '100'
+        description: |-
+          All the previous item attribute (key, value) pairs will be replaced by the new attributes. But the itemset attributes will remain unaltered. The editable itemset attributes can be altered as well
+          "height": an editable itemset attr, "price": a new itemset attr.
+      tags:
+        - Items
+  /api/users/list:
+    get:
+      summary: List Users
+      tags:
+        - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    users:
+                      - id: 1a9a899e-3619-41c3-840b-2b123ff68165
+                        firstName: Amal
+                        lastName: Amal
+                        email: admin@admin.com
+                        roleId: 23ffec9d-a531-431d-9f42-96aebff903fd
+                        Role:
+                          name: administrator
+                      - id: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+                        firstName: kamal
+                        lastName: kamal
+                        email: kamal@gmail.com
+                        roleId: 89727056-d8e8-4dca-a0ce-b1c8023aeeec
+                        Role:
+                          name: superrole
+        '400':
+          description: Bad Request
+      operationId: get-users-list
+      description: |-
+        List all the users of the system
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+    parameters: []
+  '/api/users/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: Update a User by ID
+      operationId: delete-users-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      description: |-
+        Delete the user (Warning!!! User might still be able to be logged in if he already is)
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+      tags:
+        - Users
+    patch:
+      summary: Update a User by ID
+      operationId: patch-users-id
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      description: |-
+        Alter the firstname, lastname of a user (Warning!!! Might cause the JWT to become inconsistant with user details)
+        > Required Permission Level: ADMINISTRATOR
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  firstName: Nimal
+                  lastName: Perera
+      tags:
+        - Users
+  '/api/labs/{id}/users':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get users assigned to a lab
+      tags:
+        - Labs
+        - Users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    users:
+                      id: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                      Users:
+                        - id: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+                          firstName: Nimal
+                          lastName: Perera
+                          email: kamal@gmail.com
+                          LabAssign:
+                            labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                            userId: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+                            createdAt: '2020-04-08T10:41:58.049Z'
+                            updatedAt: '2020-04-08T10:41:58.049Z'
+        '400':
+          description: Bad Request
+      operationId: get-api-items-id-users
+      description: |-
+        Lists all the users who are assigned to a lab
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
+  '/api/labs/{id}/items':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Get items in a lab
+      tags:
+        - Labs
+        - Items
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    labItems:
+                      - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
+                        serialNumber: '3456'
+                        labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                        itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                        createdAt: '2020-04-08T05:40:46.960Z'
+                        updatedAt: '2020-04-08T05:40:46.960Z'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+                      - id: bda208d8-b83b-4d88-9451-08dcd3f7aa1c
+                        serialNumber: '123'
+                        labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                        itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                        createdAt: '2020-04-08T06:04:52.810Z'
+                        updatedAt: '2020-04-08T06:04:52.810Z'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+                      - id: 6669559a-066c-461d-99b9-edaa98e5c413
+                        serialNumber: '1234'
+                        labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                        itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                        createdAt: '2020-04-08T06:07:31.333Z'
+                        updatedAt: '2020-04-08T06:07:31.333Z'
+                        ItemSet:
+                          id: 522f596b-9ead-460f-a8f5-42e62b8983fe
+                          title: transister2
+                          image: null
+        '400':
+          description: Bad Request
+      operationId: get-api-labs-id-items
+      description: |-
+        Lists all the items in a lab
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
+  /api/labs/assign:
+    parameters: []
+    post:
+      summary: Assign a user to a lab
+      operationId: post-api-labs-assign
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      description: |-
+        Assign a user to a lab
+        > Required Permission Level: LAB_MANAGER
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                  userId: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+      tags:
+        - Labs
+        - Users
+  /api/labs/unassign:
+    parameters: []
+    post:
+      summary: Unassign a user from a lab
+      operationId: post-api-labs-unassign
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      description: |-
+        Unassign a user from a lab
+        > Required Permission Level: LAB_MANAGER
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
+                  userId: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
+      tags:
+        - Labs
+        - Users
 components:
   schemas:
     Role:
@@ -1274,12 +1906,12 @@ components:
       required:
         - message
       x-examples: {}
-      description: ""
+      description: ''
     Registration-Role-Assign:
       title: Registration Token Generation Request
       type: object
       x-examples: {}
-      description: ""
+      description: ''
       properties:
         email:
           type: string
@@ -1395,7 +2027,7 @@ components:
     attribute:
       title: attribute
       type: object
-      description: "key, editable, defaultValue are required. defaultValue can be null iff editable is true"
+      description: 'key, editable, defaultValue are required. defaultValue can be null iff editable is true'
       x-examples: {}
       properties:
         key:
@@ -1415,7 +2047,7 @@ components:
         example-1:
           id: fd2851f9-4f53-4201-9d72-0e1cc168e341
           title: periscope
-          image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+          image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
           attributes:
             - key: weight
               editable: false
@@ -1436,13 +2068,30 @@ components:
         attributes:
           type: array
           items:
-            $ref: "#/components/schemas/attribute"
+            $ref: '#/components/schemas/attribute'
       required:
         - id
         - title
         - image
         - attributes
-      description: "key, editable, defaultValue are required. defaultValue can be null iff editable is true"
+      description: 'key, editable, defaultValue are required. defaultValue can be null iff editable is true'
+    Item:
+      title: Item
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              serialNumber:
+                type: string
+              ItemSet:
+                $ref: '#/components/schemas/ItemSet'
+              Lab:
+                $ref: '#/components/schemas/Lab'
   securitySchemes:
     token:
       name: token
@@ -1456,3 +2105,5 @@ tags:
   - name: Labs
   - name: Role
   - name: Itemset
+  - name: Items
+  - name: Users
