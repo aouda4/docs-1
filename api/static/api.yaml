@@ -9,7 +9,7 @@ info:
     name: MIT
   description: This is the api endpoint documentation for Open Inventory project - an inventory management application created specifically for computer labs.
 servers:
-  - url: "http://openinventory.org"
+  - url: 'http://openinventory.org'
 paths:
   /api/login:
     post:
@@ -17,7 +17,7 @@ paths:
       tags:
         - Login
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -28,7 +28,7 @@ paths:
                     type: string
                     description: JWT Token for the user
                   user:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
                 required:
                   - token
               examples:
@@ -44,12 +44,12 @@ paths:
                         - REQUESTER
                       role: Student
                       roleId: 9e7cac09-2ab3-4d70-ba58-fa165f8cb401
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -77,20 +77,20 @@ paths:
                 value:
                   email: admin@admin.com
                   password: password
-        description: ""
+        description: ''
   /api/registration/register:
     post:
       summary: Register an account
       operationId: post-api-registration-register
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -124,14 +124,14 @@ paths:
                   firstName: Demo
                   lastName: User
                   password: password
-        description: ""
+        description: ''
       tags:
         - Registration
-  "/api/registration/verify/{token}":
+  '/api/registration/verify/{token}':
     get:
       summary: Verify Registration Token
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -165,12 +165,12 @@ paths:
                     roleId: beb4667e-20a5-4bc9-b2f5-5c9d1df1be55
                     Role:
                       name: Administrator
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -192,7 +192,7 @@ paths:
     get:
       summary: List all available roles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -202,7 +202,7 @@ paths:
                   roles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Role"
+                      $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -211,12 +211,12 @@ paths:
                         name: REQUESTER
                       - id: 40d1d03b-8305-45c3-ab9c-4d6c56022976
                         name: ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -234,24 +234,24 @@ paths:
     put:
       summary: Create invite token for an email
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"role" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -268,13 +268,13 @@ paths:
               type: object
               properties:
                 requests:
-                  $ref: "#/components/schemas/Registration-Role-Assign"
+                  $ref: '#/components/schemas/Registration-Role-Assign'
             examples:
               example:
                 value:
                   email: user@gmail.com
                   role: 42647147-69d2-4c2b-8c3b-d3cc30dfdd97
-        description: ""
+        description: ''
       security:
         - token: []
       tags:
@@ -284,24 +284,24 @@ paths:
       summary: Delete invite token for an email
       operationId: delete-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: User user@gmail.com is not sent an invitation link or ther user has created a account.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -326,31 +326,31 @@ paths:
               example:
                 value:
                   email: gayal@gmail.com
-        description: ""
+        description: ''
       tags:
         - Registrar
     post:
       summary: Create invitation tokens for a list of emails
       operationId: post-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: User user2@gmail.com is already sent an invitation link or account already created
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -384,7 +384,7 @@ paths:
               required:
                 - emails
                 - role
-              description: ""
+              description: ''
             examples:
               example:
                 value:
@@ -396,7 +396,7 @@ paths:
       summary: List all tokens
       operationId: get-api-registrar-token
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -447,58 +447,58 @@ paths:
                     tokens:
                       - email: supun@gmail.com
                         valid: true
-                        updatedAt: "2020-03-27T21:12:39.063Z"
+                        updatedAt: '2020-03-27T21:12:39.063Z'
                         Role:
                           id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                           name: instructor
                       - email: instructor@gmail.com
                         valid: true
-                        updatedAt: "2020-03-27T20:41:12.766Z"
+                        updatedAt: '2020-03-27T20:41:12.766Z'
                         Role:
                           id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                           name: instructor
                       - email: user2@gmail.com
                         valid: true
-                        updatedAt: "2020-03-27T20:41:12.762Z"
+                        updatedAt: '2020-03-27T20:41:12.762Z'
                         Role:
                           id: 1a706073-2bec-4a58-84df-b7bf1ce7682a
                           name: instructor
                       - email: gayal@neomerce.com
                         valid: true
-                        updatedAt: "2020-03-19T06:25:03.946Z"
+                        updatedAt: '2020-03-19T06:25:03.946Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
                       - email: admin@neomerce.com
                         valid: false
-                        updatedAt: "2020-03-18T21:03:09.924Z"
+                        updatedAt: '2020-03-18T21:03:09.924Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
                       - email: user@gmail.com
                         valid: false
-                        updatedAt: "2020-03-17T20:06:58.960Z"
+                        updatedAt: '2020-03-17T20:06:58.960Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
                       - email: kdsuneraavinash@gmail.com
                         valid: false
-                        updatedAt: "2020-03-12T14:28:22.194Z"
+                        updatedAt: '2020-03-12T14:28:22.194Z'
                         Role:
                           id: 8837ddee-97fc-4a5c-af02-01bf6e6eab65
                           name: Student
                       - email: admin@admin.com
                         valid: false
-                        updatedAt: "2020-03-12T08:18:55.674Z"
+                        updatedAt: '2020-03-12T08:18:55.674Z'
                         Role:
                           id: 5dae708f-550a-48eb-a3a8-46f4f316063b
                           name: Administrator
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -512,41 +512,41 @@ paths:
         - token: []
       tags:
         - Registrar
-  "/api/labs/{id}":
+  '/api/labs/{id}':
     put:
       summary: Create Lab by ID
       operationId: put-api-labs
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
                     id: 0ea2a3d3-37a4-4daf-b927-1af6d8b80201
                     title: First Lab
                     subtitle: hello world
-                    updatedAt: "2020-03-14T22:48:01.969Z"
-                    createdAt: "2020-03-14T22:48:01.969Z"
-        "400":
+                    updatedAt: '2020-03-14T22:48:01.969Z'
+                    createdAt: '2020-03-14T22:48:01.969Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b80201 already exists.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -560,13 +560,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
                   title: First Lab
                   subtitle: hello world
-        description: ""
+        description: ''
       tags:
         - Labs
     parameters:
@@ -580,12 +580,12 @@ paths:
       summary: Update Lab Data
       operationId: patch-api-labs-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -593,24 +593,24 @@ paths:
                     title: Updated First Lab
                     subtitle: hello world
                     image: null
-                    createdAt: "2020-03-14T22:48:01.969Z"
-                    updatedAt: "2020-03-14T22:58:48.900Z"
-        "400":
+                    createdAt: '2020-03-14T22:48:01.969Z'
+                    updatedAt: '2020-03-14T22:58:48.900Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -624,7 +624,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
@@ -652,31 +652,31 @@ paths:
                 value:
                   title: Updated First Lab
                   subtitle: hello world
-        description: ""
+        description: ''
       tags:
         - Labs
     delete:
       summary: Delete Lab
       operationId: delete-api-labs-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: Lab 0ea2a3d3-37a4-4daf-b927-1af6d8b8020d does not exist.
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -693,12 +693,12 @@ paths:
       summary: Create Lab
       operationId: post-api-labs-create
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -706,24 +706,24 @@ paths:
                     title: Second Lab
                     subtitle: hello world
                     image: null
-                    updatedAt: "2020-03-14T23:10:32.525Z"
-                    createdAt: "2020-03-14T23:10:32.525Z"
-        "400":
+                    updatedAt: '2020-03-14T23:10:32.525Z'
+                    createdAt: '2020-03-14T23:10:32.525Z'
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LabRequest"
+                $ref: '#/components/schemas/LabRequest'
               examples:
                 example:
                   value:
                     message: '"title" is required'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -738,7 +738,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LabRequest"
+              $ref: '#/components/schemas/LabRequest'
             examples:
               example:
                 value:
@@ -752,7 +752,7 @@ paths:
       tags:
         - Labs
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -762,7 +762,7 @@ paths:
                   labs:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Lab"
+                      $ref: '#/components/schemas/Lab'
               examples:
                 example:
                   value:
@@ -771,8 +771,8 @@ paths:
                         title: microsoft lab
                         subtitle: hello world
                         image: null
-                        createdAt: "2020-04-08T05:36:07.183Z"
-                        updatedAt: "2020-04-08T05:36:07.183Z"
+                        createdAt: '2020-04-08T05:36:07.183Z'
+                        updatedAt: '2020-04-08T05:36:07.183Z'
                         Users:
                           - id: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
                             firstName: Nimal
@@ -781,17 +781,17 @@ paths:
                             LabAssign:
                               labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                               userId: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
-                              createdAt: "2020-04-08T10:41:58.049Z"
-                              updatedAt: "2020-04-08T10:41:58.049Z"
+                              createdAt: '2020-04-08T10:41:58.049Z'
+                              updatedAt: '2020-04-08T10:41:58.049Z'
                       - id: f69d4fc9-d897-47d2-8d43-d6aeae9b1682
                         title: embedded lab
                         subtitle: hello world
                         image: null
-                        createdAt: "2020-04-08T10:29:33.398Z"
-                        updatedAt: "2020-04-08T10:29:33.398Z"
+                        createdAt: '2020-04-08T10:29:33.398Z'
+                        updatedAt: '2020-04-08T10:29:33.398Z'
                         Users: []
-        "":
-          description: ""
+        '':
+          description: ''
       operationId: get-api-labs-list
       description: |-
         Lists all labs in the system
@@ -804,9 +804,9 @@ paths:
       tags:
         - Login
       responses:
-        "200":
+        '200':
           description: OK
-        "401":
+        '401':
           description: Unauthorized
       operationId: get-api-login-verify
       security:
@@ -822,12 +822,12 @@ paths:
       tags:
         - Role
       responses:
-        "200":
+        '200':
           description: OK
       security:
         - token: []
     parameters: []
-  "/api/roles/{id}":
+  '/api/roles/{id}':
     parameters:
       - schema:
           type: string
@@ -839,12 +839,12 @@ paths:
       tags:
         - Role
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -852,12 +852,12 @@ paths:
                     name: Administrator
                     permissions:
                       - ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -872,12 +872,12 @@ paths:
       summary: Update Role by ID
       operationId: patch-api-roles-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -886,22 +886,22 @@ paths:
                     permissions:
                       - REGISTRAR
                       - ADMINISTRATOR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -913,7 +913,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
             examples:
               example:
                 value:
@@ -921,7 +921,7 @@ paths:
                   permissions:
                     - REGISTRAR
                     - ADMINISTRATOR
-        description: ""
+        description: ''
       tags:
         - Role
       security:
@@ -930,24 +930,24 @@ paths:
       summary: Delete Role by ID
       operationId: delete-api-roles-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"id" must be a valid GUID'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -964,7 +964,7 @@ paths:
     get:
       summary: List all Roles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -974,7 +974,7 @@ paths:
                   roles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Role"
+                      $ref: '#/components/schemas/Role'
                 required:
                   - roles
               examples:
@@ -1010,12 +1010,12 @@ paths:
     post:
       summary: Create a new role
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Role"
+                $ref: '#/components/schemas/Role'
               examples:
                 example:
                   value:
@@ -1023,22 +1023,22 @@ paths:
                     name: instructor
                     permissions:
                       - REGISTRAR
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
                     message: '"name" is required'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               examples:
                 example:
                   value:
@@ -1051,14 +1051,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RoleRequest"
+              $ref: '#/components/schemas/RoleRequest'
             examples:
               example:
                 value:
                   name: Instructor
                   permissions:
                     - REGISTRAR
-        description: ""
+        description: ''
       security:
         - token: []
       tags:
@@ -1069,21 +1069,21 @@ paths:
       tags:
         - Itemset
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ItemSet"
+                  $ref: '#/components/schemas/ItemSet'
               examples:
                 example-1:
                   value:
                     Itemsets:
                       - id: fd2851f9-4f53-4201-9d72-0e1cc168e341
                         title: periscope
-                        image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+                        image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
                         Attributes:
                           - key: rpm
                             defaultValue: null
@@ -1096,13 +1096,13 @@ paths:
                             editable: false
                       - id: 9fda6447-af9e-4ae7-91fe-89e9cbca05a1
                         title: periscript
-                        image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+                        image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
                         Attributes:
                           - key: width
                             defaultValue: 50cm
                             editable: false
                           - key: rpm
-                            defaultValue: "40"
+                            defaultValue: '40'
                             editable: false
                           - key: height
                             defaultValue: null
@@ -1115,7 +1115,7 @@ paths:
                             defaultValue: 50cm
                             editable: false
                           - key: rpm
-                            defaultValue: "40"
+                            defaultValue: '40'
                             editable: false
                           - key: height
                             defaultValue: null
@@ -1127,24 +1127,24 @@ paths:
       security:
         - token: []
     parameters: []
-  "/api/itemset/{id}":
+  '/api/itemset/{id}':
     get:
       summary: Get itemset
       tags:
         - Itemset
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ItemSet"
+                $ref: '#/components/schemas/ItemSet'
               examples:
                 example-1:
                   value:
                     id: fd2851f9-4f53-4201-9d72-0e1cc168e341
                     title: periscope
-                    image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+                    image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
                     attributes:
                       - key: weight
                         editable: false
@@ -1155,9 +1155,9 @@ paths:
                       - key: rpm
                         editable: true
                         defaultValue: null
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       operationId: get-api-itemset-id
       description: |-
@@ -1175,12 +1175,12 @@ paths:
       summary: Update Itemset
       operationId: patch-api-itemset-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ItemSet"
+                $ref: '#/components/schemas/ItemSet'
               examples:
                 example-1:
                   value:
@@ -1192,13 +1192,13 @@ paths:
                         defaultValue: null
                       - key: rpm
                         editable: true
-                        defaultValue: "40"
+                        defaultValue: '40'
                       - key: width
                         editable: false
                         defaultValue: 50cm
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       description: |-
         Updates an itemset of a given id.
@@ -1207,7 +1207,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ItemSet"
+              $ref: '#/components/schemas/ItemSet'
             examples:
               example-1:
                 value:
@@ -1219,11 +1219,11 @@ paths:
                       defaultValue: null
                     - key: rpm
                       editable: true
-                      defaultValue: "40"
+                      defaultValue: '40'
                     - key: width
                       editable: false
                       defaultValue: 50cm
-        description: " title should not be previously used for other itemsets."
+        description: ' title should not be previously used for other itemsets.'
       tags:
         - Itemset
       security:
@@ -1232,11 +1232,11 @@ paths:
       summary: Delete Itemset
       operationId: delete-api-itemset-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       description: |-
         Deletes an itemset with a given id
@@ -1250,11 +1250,11 @@ paths:
       summary: Create Itemset
       operationId: post-api-itemset-create
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
-        "401":
+        '401':
           description: Unauthorized
       description: "Creates a new itemset based on the req body details. \n> Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER"
       requestBody:
@@ -1270,7 +1270,7 @@ paths:
                 attributes:
                   type: array
                   items:
-                    $ref: "#/components/schemas/attribute"
+                    $ref: '#/components/schemas/attribute'
               required:
                 - title
                 - image
@@ -1283,10 +1283,10 @@ paths:
                   attributes:
                     - key: height
                       editable: true
-                      defaultValue: ""
+                      defaultValue: ''
                     - key: rpm
                       editable: true
-                      defaultValue: "40"
+                      defaultValue: '40'
                     - key: width
                       editable: false
                       defaultValue: 50cm
@@ -1300,8 +1300,8 @@ paths:
       tags:
         - Items
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -1312,7 +1312,7 @@ paths:
                   value:
                     items:
                       - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
-                        serialNumber: "3456"
+                        serialNumber: '3456'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1323,7 +1323,7 @@ paths:
                           subtitle: hello world
                           image: null
                       - id: bda208d8-b83b-4d88-9451-08dcd3f7aa1c
-                        serialNumber: "123"
+                        serialNumber: '123'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1334,7 +1334,7 @@ paths:
                           subtitle: hello world
                           image: null
                       - id: 6669559a-066c-461d-99b9-edaa98e5c413
-                        serialNumber: "1234"
+                        serialNumber: '1234'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1344,20 +1344,20 @@ paths:
                           title: microsoft lab
                           subtitle: hello world
                           image: null
-        "400":
+        '400':
           description: Bad Request
-        "":
-          description: ""
+        '':
+          description: ''
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Item"
+                $ref: '#/components/schemas/Item'
               examples:
                 example:
                   value:
                     items:
                       - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
-                        serialNumber: "3456"
+                        serialNumber: '3456'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1368,7 +1368,7 @@ paths:
                           subtitle: hello world
                           image: null
                       - id: 12345289-6f39-48d4-9866-ef5d5ed8d846
-                        serialNumber: "3456"
+                        serialNumber: '3456'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1387,7 +1387,7 @@ paths:
                   value:
                     items:
                       - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
-                        serialNumber: "3456"
+                        serialNumber: '3456'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1398,7 +1398,7 @@ paths:
                           subtitle: hello world
                           image: null
                       - id: 11224289-6f39-48d4-9866-ef5d5ed8d846
-                        serialNumber: "3496"
+                        serialNumber: '3496'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
@@ -1421,7 +1421,7 @@ paths:
       summary: Transfer Items from a lab to a new lab
       operationId: postitems-transfer
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1433,7 +1433,7 @@ paths:
                   value:
                     id: 35584289-6f39-48d4-9866-ef5d5ed8d846
                     labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
-        "400":
+        '400':
           description: Bad Request
       description: |-
         Transfer an item to another lab
@@ -1459,7 +1459,7 @@ paths:
       summary: Create an Item
       operationId: post-items-create
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1470,16 +1470,16 @@ paths:
                 example-1:
                   value:
                     id: 6669559a-066c-461d-99b9-edaa98e5c413
-                    serialNumber: "1234"
+                    serialNumber: '1234'
                     itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
                     labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                     attributes:
                       - key: price
-                        value: "100"
-        "400":
+                        value: '100'
+        '400':
           description: Bad Request
       requestBody:
-        description: ""
+        description: ''
         content:
           application/json:
             schema:
@@ -1489,19 +1489,19 @@ paths:
               example-1:
                 value:
                   id: df89ccaa-ee34-437b-9ae7-81c3c3e4aad0
-                  serialNumber: "12344"
+                  serialNumber: '12344'
                   itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
                   labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                   attributes:
                     - key: price
-                      value: "100"
+                      value: '100'
       description: "Create an item \n> Required Permission Level: LAB_MANAGER or INVENTORY_MANAGER\nAny LAB_MANAGER can create items while only an INVENTORY_MANAGER assigned to a lab can create"
       security:
         - token: []
       tags:
         - Items
     parameters: []
-  "api/items/{id}":
+  'api/items/{id}':
     parameters:
       - schema:
           type: string
@@ -1511,7 +1511,7 @@ paths:
     get:
       summary: Get an Item by ID
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1522,7 +1522,7 @@ paths:
                 example-1:
                   value:
                     id: bda208d8-b83b-4d88-9451-08dcd3f7aa1c
-                    serialNumber: "123"
+                    serialNumber: '123'
                     ItemSet:
                       id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                       title: transister2
@@ -1534,11 +1534,11 @@ paths:
                       image: null
                     ItemAttributes:
                       - key: height
-                        value: ""
+                        value: ''
                       - key: price
-                        value: "100"
+                        value: '100'
                       - key: rpm
-                        value: "40"
+                        value: '40'
                       - key: width
                         value: 50cm
       operationId: get-items-id
@@ -1554,9 +1554,9 @@ paths:
       summary: Delete an Item by ID
       operationId: delete-items-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
       description: |-
         Delete an item with a given ID
@@ -1571,7 +1571,7 @@ paths:
       summary: Update an Item by Id
       operationId: patch-items-id
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1582,21 +1582,21 @@ paths:
                 example-1:
                   value:
                     id: 35584289-6f39-48d4-9866-ef5d5ed8d846
-                    serialNumber: "3456"
+                    serialNumber: '3456'
                     attributes:
                       - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
                         key: height
-                        value: "10"
+                        value: '10'
                       - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
                         key: rpm
-                        value: "40"
+                        value: '40'
                       - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
                         key: width
                         value: 50cm
                       - itemId: 35584289-6f39-48d4-9866-ef5d5ed8d846
                         key: price
-                        value: "100"
-        "400":
+                        value: '100'
+        '400':
           description: Bad Request
       description: |-
         Update an item with a given ID
@@ -1614,9 +1614,9 @@ paths:
                 value:
                   attributes:
                     - key: height
-                      value: "10"
+                      value: '10'
                     - key: price
-                      value: "100"
+                      value: '100'
         description: |-
           All the previous item attribute (key, value) pairs will be replaced by the new attributes. But the itemset attributes will remain unaltered. The editable itemset attributes can be altered as well
           "height": an editable itemset attr, "price": a new itemset attr.
@@ -1628,7 +1628,7 @@ paths:
       tags:
         - Users
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1653,7 +1653,7 @@ paths:
                         roleId: 89727056-d8e8-4dca-a0ce-b1c8023aeeec
                         Role:
                           name: superrole
-        "400":
+        '400':
           description: Bad Request
       operationId: get-users-list
       description: |-
@@ -1662,7 +1662,7 @@ paths:
       security:
         - token: []
     parameters: []
-  "/api/users/{id}":
+  '/api/users/{id}':
     parameters:
       - schema:
           type: string
@@ -1673,9 +1673,9 @@ paths:
       summary: Update a User by ID
       operationId: delete-users-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
       description: |-
         Delete the user (Warning!!! User might still be able to be logged in if he already is)
@@ -1688,9 +1688,9 @@ paths:
       summary: Update a User by ID
       operationId: patch-users-id
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
       description: |-
         Alter the firstname, lastname of a user (Warning!!! Might cause the JWT to become inconsistant with user details)
@@ -1710,7 +1710,7 @@ paths:
                   lastName: Perera
       tags:
         - Users
-  "/api/labs/{id}/users":
+  '/api/labs/{id}/users':
     parameters:
       - schema:
           type: string
@@ -1723,7 +1723,7 @@ paths:
         - Labs
         - Users
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1743,9 +1743,9 @@ paths:
                           LabAssign:
                             labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                             userId: 0ceeac00-e2d3-467b-8381-b38ae1d46b2e
-                            createdAt: "2020-04-08T10:41:58.049Z"
-                            updatedAt: "2020-04-08T10:41:58.049Z"
-        "400":
+                            createdAt: '2020-04-08T10:41:58.049Z'
+                            updatedAt: '2020-04-08T10:41:58.049Z'
+        '400':
           description: Bad Request
       operationId: get-api-items-id-users
       description: |-
@@ -1753,7 +1753,7 @@ paths:
         > Required Permission Level: loggedIn
       security:
         - token: []
-  "/api/labs/{id}/items":
+  '/api/labs/{id}/items':
     parameters:
       - schema:
           type: string
@@ -1766,7 +1766,7 @@ paths:
         - Labs
         - Items
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1778,39 +1778,39 @@ paths:
                   value:
                     labItems:
                       - id: 35584289-6f39-48d4-9866-ef5d5ed8d846
-                        serialNumber: "3456"
+                        serialNumber: '3456'
                         labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                         itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
-                        createdAt: "2020-04-08T05:40:46.960Z"
-                        updatedAt: "2020-04-08T05:40:46.960Z"
+                        createdAt: '2020-04-08T05:40:46.960Z'
+                        updatedAt: '2020-04-08T05:40:46.960Z'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
                           image: null
                         status: ACCEPTED
                       - id: bda208d8-b83b-4d88-9451-08dcd3f7aa1c
-                        serialNumber: "123"
+                        serialNumber: '123'
                         labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                         itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
-                        createdAt: "2020-04-08T06:04:52.810Z"
-                        updatedAt: "2020-04-08T06:04:52.810Z"
+                        createdAt: '2020-04-08T06:04:52.810Z'
+                        updatedAt: '2020-04-08T06:04:52.810Z'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
                           image: null
                         status: BORROWED
                       - id: 6669559a-066c-461d-99b9-edaa98e5c413
-                        serialNumber: "1234"
+                        serialNumber: '1234'
                         labId: 5bb28720-ceaa-40f9-854e-39b4d6ee67b6
                         itemSetId: 522f596b-9ead-460f-a8f5-42e62b8983fe
-                        createdAt: "2020-04-08T06:07:31.333Z"
-                        updatedAt: "2020-04-08T06:07:31.333Z"
+                        createdAt: '2020-04-08T06:07:31.333Z'
+                        updatedAt: '2020-04-08T06:07:31.333Z'
                         ItemSet:
                           id: 522f596b-9ead-460f-a8f5-42e62b8983fe
                           title: transister2
                           image: null
                         status: AVAILABLE
-        "400":
+        '400':
           description: Bad Request
       operationId: get-api-labs-id-items
       description: |-
@@ -1828,9 +1828,9 @@ paths:
       summary: Assign a user to a lab
       operationId: post-api-labs-assign
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
       description: |-
         Assign a user to a lab
@@ -1857,9 +1857,9 @@ paths:
       summary: Unassign a user from a lab
       operationId: post-api-labs-unassign
       responses:
-        "200":
+        '200':
           description: OK
-        "400":
+        '400':
           description: Bad Request
       description: |-
         Unassign a user from a lab
@@ -1885,7 +1885,7 @@ paths:
       summary: Create a item request
       operationId: post-api-requestitems-create
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -1907,7 +1907,7 @@ paths:
                       - itemId: 840234fc-b955-453a-9780-9deea108abdd
                         requestId: 2a626e25-6a64-48f2-8703-069e9557e5c8
                         status: PENDING
-        "400":
+        '400':
           description: Bad Request
       tags:
         - RequestItems
@@ -1932,7 +1932,109 @@ paths:
                   userId: 434fd31f-7a0a-41c7-8bce-d8a1cec996ed
                   supervisorId: 769d919a-39bb-47c1-8d23-35a8ad8efac4
                   reason: Testing what else
-        description: ""
+        description: ''
+  '/api/requestitems/{token}':
+    parameters:
+      - schema:
+          type: string
+        name: token
+        in: path
+        required: true
+    get:
+      summary: GET item request using the token
+      tags:
+        - RequestItems
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 9e1807c4-0252-4da4-9734-eba127caee30
+                    labId: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
+                    userId: d53d5fd0-9f9d-4676-9dd8-00f43f3dd232
+                    supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
+                    reason: Testing what else
+                    declineReason: null
+                    supervisorToken: pQZYZX_ozWNiQ5Esw9Ltj58I70K5CT3GpCT_ZhVuv6T72tWk3Na23Eti4oFt1_ZoKtQ-sR4FRkH7fydK~PdCrUsn8bwMcB51
+                    status: REQUESTED
+                    createdAt: '2020-05-12T02:29:47.447Z'
+                    updatedAt: '2020-05-12T02:29:47.447Z'
+                    RequestItems:
+                      - itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                        requestId: 9e1807c4-0252-4da4-9734-eba127caee30
+                        returnedDate: null
+                        dueDate: null
+                        borrowedDate: null
+                        status: PENDING
+                        createdAt: '2020-05-12T02:29:47.478Z'
+                        updatedAt: '2020-05-12T02:29:47.478Z'
+                        Item:
+                          id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                          serialNumber: '123356'
+                          ItemSet:
+                            id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                            title: resister
+                            image: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: 'Invalid token!'
+      operationId: get-api-requestitems-token
+      description: |-
+        Get the details of a request(for supervisors)
+        > Required Permission Level: NONE
+  /api/requestitems/review:
+    post:
+      summary: Post review details(Accept/Reject)
+      operationId: post-api-requestitems-review
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: 'Expired request!'
+      description: |-
+        Post review details(Accept/Reject)
+        value = true if accept, false othervise
+        If value = true, declineReason should be null.
+        If value = false, declineReason can be null or a string.
+        **But declineReason is a required field
+        > Required Permission Level: NONE
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  token: ~4JPw33Se~322Y376cFmFuxM_24IYKNylEjvgvX_VBaQQX0aGMd8Hpb9IDbrKigUykpJzEktJuMyn9HR7z3Qs.vm_8stnj08
+                  value: true
+                  declineReason: null
+      tags:
+        - RequestItems
 components:
   schemas:
     Role:
@@ -1966,12 +2068,12 @@ components:
       required:
         - message
       x-examples: {}
-      description: ""
+      description: ''
     Registration-Role-Assign:
       title: Registration Token Generation Request
       type: object
       x-examples: {}
-      description: ""
+      description: ''
       properties:
         email:
           type: string
@@ -2087,7 +2189,7 @@ components:
     attribute:
       title: attribute
       type: object
-      description: "key, editable, defaultValue are required. defaultValue can be null iff editable is true"
+      description: 'key, editable, defaultValue are required. defaultValue can be null iff editable is true'
       x-examples: {}
       properties:
         key:
@@ -2107,7 +2209,7 @@ components:
         example-1:
           id: fd2851f9-4f53-4201-9d72-0e1cc168e341
           title: periscope
-          image: "https://mail.google.com/mail/u/0/?tab=wm&ogbl"
+          image: 'https://mail.google.com/mail/u/0/?tab=wm&ogbl'
           attributes:
             - key: weight
               editable: false
@@ -2128,13 +2230,13 @@ components:
         attributes:
           type: array
           items:
-            $ref: "#/components/schemas/attribute"
+            $ref: '#/components/schemas/attribute'
       required:
         - id
         - title
         - image
         - attributes
-      description: "key, editable, defaultValue are required. defaultValue can be null iff editable is true"
+      description: 'key, editable, defaultValue are required. defaultValue can be null iff editable is true'
     Item:
       title: Item
       type: object
@@ -2149,9 +2251,9 @@ components:
               serialNumber:
                 type: string
               ItemSet:
-                $ref: "#/components/schemas/ItemSet"
+                $ref: '#/components/schemas/ItemSet'
               Lab:
-                $ref: "#/components/schemas/Lab"
+                $ref: '#/components/schemas/Lab'
   securitySchemes:
     token:
       name: token
