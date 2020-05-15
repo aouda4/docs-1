@@ -1965,22 +1965,6 @@ paths:
                     status: REQUESTED
                     createdAt: '2020-05-12T02:29:47.447Z'
                     updatedAt: '2020-05-12T02:29:47.447Z'
-                    RequestItems:
-                      - itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
-                        requestId: 9e1807c4-0252-4da4-9734-eba127caee30
-                        returnedDate: null
-                        dueDate: null
-                        borrowedDate: null
-                        status: PENDING
-                        createdAt: '2020-05-12T02:29:47.478Z'
-                        updatedAt: '2020-05-12T02:29:47.478Z'
-                        Item:
-                          id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
-                          serialNumber: '123356'
-                          ItemSet:
-                            id: fb1f7558-2cba-45e7-893c-75d75e99c38a
-                            title: resister
-                            image: null
                     Lab:
                       id: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
                       title: embedded
@@ -2043,6 +2027,66 @@ paths:
                   declineReason: null
       tags:
         - RequestItems
+  /api/requestitems/requester/list:
+    get:
+      summary: GET a list of all student by a student
+      tags:
+        - RequestItems
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    - id: 760573f1-99d9-4640-ae6c-220db1a5ea05
+                      supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
+                      status: ACCEPTED
+                      RequestItems:
+                        - returnedDate: null
+                          dueDate: null
+                          borrowedDate: null
+                          status: ACCEPTED
+                          Item:
+                            id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                            serialNumber: '123356'
+                            ItemSet:
+                              id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                              title: resister
+                      Lab:
+                        id: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
+                        title: embedded
+                    - id: 9e1807c4-0252-4da4-9734-eba127caee30
+                      supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
+                      status: REQUESTED
+                      RequestItems:
+                        - returnedDate: null
+                          dueDate: null
+                          borrowedDate: null
+                          status: PENDING
+                          Item:
+                            id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                            serialNumber: '123356'
+                            ItemSet:
+                              id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                              title: resister
+                      Lab:
+                        id: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
+                        title: embedded
+        '400':
+          description: Bad Request
+      operationId: get-api-requestitem-requester-list
+      description: |-
+        Get a list of all the requests for items by a student.
+        Request should be made by the student himself
+        > Required Permission Level: REQUESTER
+      security:
+        - token: []
+    parameters: []
 components:
   schemas:
     Role:
