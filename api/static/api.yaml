@@ -2087,6 +2087,177 @@ paths:
       security:
         - token: []
     parameters: []
+  '/api/requestitems/lab/list/{labId}':
+    parameters:
+      - schema:
+          type: string
+        name: labId
+        in: path
+        required: true
+    get:
+      summary: GET all the requests in a lab
+      tags:
+        - RequestItems
+        - Labs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    - id: 8fb86480-8f2c-4cee-915c-0c4fa314a374
+                      supervisorId: 6dffccad-5720-4f40-a7a7-acb24c7554e7
+                      reason: Testing what else
+                      status: REQUESTED
+                      RequestItems:
+                        - returnedDate: null
+                          dueDate: null
+                          borrowedDate: null
+                          status: PENDING
+                          Item:
+                            id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                            serialNumber: '123356'
+                            ItemSet:
+                              id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                              title: resister
+                      User:
+                        id: d7725020-b196-4ff2-b2f1-2ff106f9d04f
+                        firstName: ins
+                        lastName: ins
+                        email: admin@admin.com
+                    - id: 4bc1b186-004f-48b0-afe9-ac2cfdb5eabb
+                      supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
+                      reason: Testing what else
+                      status: ACCEPTED
+                      RequestItems:
+                        - returnedDate: null
+                          dueDate: null
+                          borrowedDate: null
+                          status: ACCEPTED
+                          Item:
+                            id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                            serialNumber: '123356'
+                            ItemSet:
+                              id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                              title: resister
+                      User:
+                        id: d7725020-b196-4ff2-b2f1-2ff106f9d04f
+                        firstName: ins
+                        lastName: ins
+                        email: admin@admin.com
+                    - id: 760573f1-99d9-4640-ae6c-220db1a5ea05
+                      supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
+                      reason: Testing what else
+                      status: ACCEPTED
+                      RequestItems:
+                        - returnedDate: null
+                          dueDate: null
+                          borrowedDate: null
+                          status: ACCEPTED
+                          Item:
+                            id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                            serialNumber: '123356'
+                            ItemSet:
+                              id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                              title: resister
+                      User:
+                        id: d53d5fd0-9f9d-4676-9dd8-00f43f3dd232
+                        firstName: ins
+                        lastName: ins
+                        email: g.c.dassanayake@gmail.com
+                    - id: 9e1807c4-0252-4da4-9734-eba127caee30
+                      supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
+                      reason: Testing what else
+                      status: REQUESTED
+                      RequestItems:
+                        - returnedDate: null
+                          dueDate: null
+                          borrowedDate: null
+                          status: PENDING
+                          Item:
+                            id: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                            serialNumber: '123356'
+                            ItemSet:
+                              id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                              title: resister
+                      User:
+                        id: d53d5fd0-9f9d-4676-9dd8-00f43f3dd232
+                        firstName: ins
+                        lastName: ins
+                        email: g.c.dassanayake@gmail.com
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: Insufficient permissions
+      operationId: get-api-requestitems-lab-list-labId
+      description: |-
+        > Required Permission Level: LAB_MANAGER or INVENTORY_MANAGER
+        Any LAB_MANAGER can list item requests while only an INVENTORY_MANAGER assigned to a lab can list
+      security:
+        - token: []
+      requestBody: {}
+  '/api/users/{id}/assignedlabs':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: GET the labs assigned to a user
+      tags:
+        - Users
+        - Labs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    labs:
+                      - id: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
+                        title: embedded
+                        subtitle: hello emb
+                        image: 'null'
+                      - id: 678uea53-ed14-44ca-9ef5-9ddbed9fd083
+                        title: embedded
+                        subtitle: hello emb
+                        image: 'null'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: User does not have inventory Manager permission.
+      operationId: get-api-users-id-assignedlabs
+      description: |-
+        The assigned lab list of a user is returned.
+        If doesnt have INVENTORY_MANAGER permission throws an error.
+        > Required Permission Level: loggedIn
+      security:
+        - token: []
 components:
   schemas:
     Role:
