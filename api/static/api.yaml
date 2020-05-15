@@ -1981,6 +1981,14 @@ paths:
                             id: fb1f7558-2cba-45e7-893c-75d75e99c38a
                             title: resister
                             image: null
+                    Lab:
+                      id: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
+                      title: embedded
+                    User:
+                      id: d53d5fd0-9f9d-4676-9dd8-00f43f3dd232
+                      firstName: ins
+                      lastName: ins
+                      email: g.c.dassanayake@gmail.com
         '400':
           description: Bad Request
           content:
