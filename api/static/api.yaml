@@ -1955,16 +1955,24 @@ paths:
               examples:
                 example-1:
                   value:
-                    id: 9e1807c4-0252-4da4-9734-eba127caee30
+                    id: c1a85f52-9c27-4eb4-8893-4f6bfa10337e
                     labId: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
                     userId: d53d5fd0-9f9d-4676-9dd8-00f43f3dd232
                     supervisorId: 8cb18a70-5b9e-45af-82ba-e516b69aa227
                     reason: Testing what else
                     declineReason: null
-                    supervisorToken: pQZYZX_ozWNiQ5Esw9Ltj58I70K5CT3GpCT_ZhVuv6T72tWk3Na23Eti4oFt1_ZoKtQ-sR4FRkH7fydK~PdCrUsn8bwMcB51
+                    supervisorToken: YkwHgI41x6RYpDkbRG-0OCbNt9WdCu.67G~0ZKk4V-Cagxq5--HXCNAUYmDi1LD.X_FiN6UaXFttEE34HQPJOWOBwUvqhprL
                     status: REQUESTED
-                    createdAt: '2020-05-12T02:29:47.447Z'
-                    updatedAt: '2020-05-12T02:29:47.447Z'
+                    createdAt: '2020-05-22T12:17:13.816Z'
+                    updatedAt: '2020-05-22T12:17:13.816Z'
+                    RequestItems:
+                      - itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                        Item:
+                          serialNumber: '123356'
+                          ItemSet:
+                            id: fb1f7558-2cba-45e7-893c-75d75e99c38a
+                            title: resister
+                            image: null
                     Lab:
                       id: 1211ea53-ed14-44ca-9ef5-9ddbed9fd083
                       title: embedded
@@ -2258,6 +2266,102 @@ paths:
         > Required Permission Level: loggedIn
       security:
         - token: []
+  /api/requestitems/lend:
+    post:
+      summary: POST lend operation for a requested Item
+      operationId: post-api-requestitems-lend
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                    requestId: 4bc1b186-004f-48b0-afe9-ac2cfdb5eabb
+                    status: BORROWED
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: Item Request does not exist
+      description: |-
+        Lend the requested item to a student
+        Requested item should be in ACCEPTED state to lend
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                  requestId: 4bc1b186-004f-48b0-afe9-ac2cfdb5eabb
+      tags:
+        - RequestItems
+  /api/requestitems/return:
+    post:
+      summary: POST return operation for a borrowed Item
+      operationId: post-api-requestitems-return
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                    requestId: 4bc1b186-004f-48b0-afe9-ac2cfdb5eabb
+                    status: RETURNED
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: Item Request does not exist
+      tags:
+        - RequestItems
+      description: |-
+        Lend the requested item to a student
+        Requested item should be in BORROWED state to lend
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
+                  requestId: 4bc1b186-004f-48b0-afe9-ac2cfdb5eabb
 components:
   schemas:
     Role:
