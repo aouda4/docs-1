@@ -1834,6 +1834,7 @@ paths:
           description: Bad Request
       description: |-
         Assign a user to a lab
+        - Assigned user should have the permission INVENTORY_MANAGER.
         > Required Permission Level: LAB_MANAGER
       security:
         - token: []
@@ -2362,6 +2363,195 @@ paths:
                 value:
                   itemId: 2cafc0f3-d1e0-4a8e-9f16-f26e80ae7ee1
                   requestId: 4bc1b186-004f-48b0-afe9-ac2cfdb5eabb
+  /api/temporaryrequests/lend:
+    post:
+      summary: Temporary Lend
+      operationId: post-api-temporaryrequests-lend
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 3dc20964-2464-444c-95ca-423b50121bfa
+                    itemId: a3f03b54-5940-4113-9f2c-f4a24e821cd9
+                    borrowedTime: '2020-05-24T05:47:31.412Z'
+                    dueTime: '2020-05-24T18:30:00.000Z'
+                    userId: 3d9313d3-7e2b-4cfb-92b4-ee06e6ff7809
+                    status: BORROWED
+                    updatedAt: '2020-05-24T05:47:31.414Z'
+                    createdAt: '2020-05-24T05:47:31.414Z'
+                    returnedTime: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: "'Invalid requester ID.'"
+                example-2:
+                  value:
+                    message: Requested Item does not exist
+                example-3:
+                  value:
+                    message: Requester has items to be returned to the lab.
+                example-4:
+                  value:
+                    message: Item is not available in the lab.
+                example-5:
+                  value:
+                    message: Invalid data. item request creation failed.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: Invalid data. item request creation failed.
+      tags:
+        - TemporaryRequest
+      description: |-
+        Lend an item temporarily to a student
+        - Student should be of a role with REQUESTER permission
+        - Student should not have previous not returned temporary borrowed items.
+        - Item should not be already borrowed or temporarily borrowed
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+        - if INVENTORY_MANAGER needs to be assigned to the lab the item is in.
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  itemId: a3f03b54-5940-4113-9f2c-f4a24e821cd9
+                  studentId: 3d9313d3-7e2b-4cfb-92b4-ee06e6ff7809
+        description: ''
+  /api/temporaryrequests/return:
+    post:
+      summary: Return temporary lent items
+      operationId: post-api-temporaryrequests-return
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    id: 3dc20964-2464-444c-95ca-423b50121bfa
+                    itemId: a3f03b54-5940-4113-9f2c-f4a24e821cd9
+                    userId: 3d9313d3-7e2b-4cfb-92b4-ee06e6ff7809
+                    returnedTime: '2020-05-24T05:49:44.563Z'
+                    dueTime: '2020-05-24T18:30:00.000Z'
+                    borrowedTime: '2020-05-24T05:47:31.412Z'
+                    status: RETURNED
+                    createdAt: '2020-05-24T05:47:31.414Z'
+                    updatedAt: '2020-05-24T05:49:44.565Z'
+                    Item:
+                      labId: 3e5932ab-eae6-4e4b-a837-ca4663662b3a
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: Temporary Item request does not exist
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: Insufficient permissions
+      description: |-
+        Return an item temporarily lent to a student
+        - Student should be of a role with REQUESTER permission
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+        - if INVENTORY_MANAGER needs to be assigned to the lab the item is in.
+      tags:
+        - TemporaryRequest
+      security:
+        - token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              example-1:
+                value:
+                  itemId: a3f03b54-5940-4113-9f2c-f4a24e821cd9
+                  studentId: 3d9313d3-7e2b-4cfb-92b4-ee06e6ff7809
+  '/api/temporaryrequests/list/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: GET all item requests of a lab
+      tags:
+        - TemporaryRequest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value:
+                    message: A lab does not exist for the given ID
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-1:
+                  value: {}
+      operationId: get-api-temporaryrequests-list-id
+      description: |-
+        Return all the temporary item Requests in a given lab
+        - Student should be of a role with REQUESTER permission
+        > Required Permission Level: LAB_MANAGER, INVENTORY_MANAGER
+      security:
+        - token: []
 components:
   schemas:
     Role:
@@ -2597,3 +2787,4 @@ tags:
   - name: Items
   - name: Users
   - name: RequestItems
+  - name: TemporaryRequest
