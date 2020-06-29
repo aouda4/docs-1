@@ -1,5 +1,4 @@
-* Getting Started
-  * [What is this?](/)
-* Project Reports
-  * [Project Proposal](reports/proposal.md)
-  * [Feasibility Report](reports/feasibility.md)
+- Getting Started
+  - [User Manual](/)
+  - [Building from Source](reports/build.md)
+  - [Project Proposal](reports/proposal.md)
